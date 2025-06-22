@@ -1,0 +1,176 @@
+# How to
+# install brew
+# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# brew tap homebrew/bundle
+# touch ~/brewfile
+# Install and update from brew bundle
+# brew bundle --file=~/brewfile
+# Export for existing install into Bundle
+# brew bundle dump --file=~/brewfile --force
+# brew bundle cleanup --force --file=~/brewfile
+# brew outdated && brew upgrade --greedy --dry-run && mas outdated
+# brew bundle --file=~/brewfile --force ; brew upgrade --greedy
+# brew outdated ; brew upgrade --greedy --dry-run ; mas outdated ; brew bundle --file=~/brewfile --force ; brew upgrade --greedy
+
+# Taps
+tap "adoptopenjdk/openjdk"
+tap "nats-io/nats-tools"
+tap "netbirdio/tap"
+tap "nikitabobko/tap"
+
+# Brews
+brew "age"
+brew "asciinema"
+brew "asitop"
+brew "atac"
+brew "atuin"
+brew "bat"
+brew "btop"
+brew "carapace"
+brew "cmake"
+# brew "docker-compose"
+brew "eza"
+brew "fd" # yazi dependancy
+brew "ffmpeg" # yazi dependancy
+brew "ffmpegthumbnailer" # yazi dependancy
+brew "fzf" # yazi dependancy
+brew "gh"
+brew "huggingface-cli"
+brew "helix"
+brew "imagemagick" # yazi dependancy
+brew "jj"
+brew "jq" # yazi dependancy
+# brew "kubectl"
+brew "lima"
+brew "llm"
+brew "llvm"
+brew "lf"
+brew "mas"
+brew "mlx"
+brew "nats-io/nats-tools/nats"
+brew "nats-server"
+brew "nats-streaming-server"
+brew "ncurses"
+brew "nmap"
+brew "node"
+brew "nushell"
+brew "oh-my-posh"
+brew "openjdk"
+brew "openssl"
+brew "p7zip"
+brew "portaudio"
+brew "pueue"
+brew "podman"
+brew "podman-compose"
+brew "podman-tui"
+brew "poppler" # yazi dependancy
+brew "portal"
+brew "pv"
+brew "pyenv"
+brew "pytorch"
+brew "rainfrog"
+brew "ripgrep" # yazi dependancy
+brew "rust"
+brew "sevenzip" # yazi dependancy
+brew "sqlite"
+brew "sshs"
+brew "starship"
+brew "thefuck"
+brew "tlrc"
+brew "trippy"
+brew "tmux"
+brew "uv"
+brew "yazi" # yazi dependancy
+brew "ykman"
+brew "yq"
+brew "yubikey-personalization"
+brew "zellij"
+brew "zoxide" # yazi dependancy
+
+# Casks
+cask "amethyst"
+cask "arc"
+cask "audacity"
+cask "bartender"
+cask "bitwarden"
+cask "calibre"
+cask "chatgpt"
+cask "claude"
+cask "cleanshot"
+cask "commander-one"
+cask "cyberduck"
+cask "disk-diet"
+cask "discord"
+cask "downie"
+cask "drawio"
+cask "drivedx"
+cask "excalidrawz"
+cask "figma"
+cask "firefox"
+cask "folx"
+cask "font-meslo-lg-nerd-font"
+cask "font-symbols-only-nerd-font" # yazi dependancy
+# cask "ghostty"
+cask "ghostty@tip"
+cask "github"
+cask "google-chrome"
+cask "grammarly-desktop"
+cask "handbrake"
+cask "iina"
+cask "imageoptim"
+cask "keka"
+cask "keycastr"
+cask "latest"
+cask "lm-studio"
+cask "maccy"
+cask "monitorcontrol"
+cask "msty"
+cask "mullvad-browser"
+cask "netbird-ui"
+cask "obsidian"
+cask "ollama"
+cask "onyx"
+cask "permute"
+cask "podman-desktop"
+cask "pdf-squeezer"
+cask "raycast"
+# cask "shottr"
+cask "slack"
+cask "soulver"
+cask "soulver-cli"
+cask "spotify"
+cask "sublime-text"
+cask "tg-pro"
+cask "tor-browser"
+cask "transmit"
+cask "voiceink"
+cask "viber"
+cask "wezterm"
+cask "visual-studio-code"
+cask "whatsapp"
+cask "wireshark"
+cask "yubico-authenticator"
+cask "yubico-yubikey-manager"
+cask "zen"
+cask "zoom"
+
+# Mac App Store apps
+## mas "Velja", id: 1607635845
+mas "Battery Monitor", id: 413678017
+mas "Dropover", id: 1355679052
+mas "Encrypto", id: 935235287
+mas "HotKey", id: 975890633
+mas "Keynote", id: 409183694
+# mas "Manus AI", id: 6740909540
+mas "Meeter", id: 1510445899
+mas "Mysterium VPN", id: 6446624307
+mas "Numbers", id: 409203825
+mas "PDFgear", id: 6469021132
+mas "Pages", id: 409201541
+mas "Perplexity: Ask Anything", id: 6714467650
+mas "Pixelmator Pro", id: 1289583905
+mas "StopTheMadness Pro", id: 6471380298
+mas "System Monitor", id: 423368786
+mas "Telegram Lite", id: 946399090
+mas "WeChat", id: 836500024
+mas "Xcode", id: 497799835
