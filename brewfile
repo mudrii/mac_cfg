@@ -9,7 +9,7 @@
 # brew bundle dump --file=~/brewfile --force
 # brew bundle cleanup --force --file=~/brewfile
 # brew outdated && brew upgrade --greedy --dry-run && mas outdated
-# brew bundle --file=~/brewfile --force ; brew upgrade --greedy
+# brew bundle --file=~/brewfile --force --verbose ; brew upgrade --greedy
 # brew outdated ; brew upgrade --greedy --dry-run ; mas outdated ; brew bundle --file=~/brewfile --force ; brew upgrade --greedy
 
 # Taps
@@ -97,7 +97,7 @@ cask "calibre"
 cask "chatgpt"
 cask "claude"
 cask "cleanshot"
-cask "coconatbatteery"
+cask "coconutbattery"
 cask "commander-one"
 cask "cyberduck"
 cask "disk-diet"
@@ -116,7 +116,7 @@ cask "ghostty@tip"
 cask "github"
 cask "google-chrome"
 cask "grammarly-desktop"
-cask "handbrake"
+cask "handbrake-app"
 cask "iina"
 cask "imageoptim"
 cask "keka"
@@ -129,7 +129,7 @@ cask "msty"
 cask "mullvad-browser"
 cask "netbird-ui"
 cask "obsidian"
-cask "ollama"
+cask "ollama-app"
 cask "onyx"
 cask "permute"
 cask "podman-desktop"
@@ -149,7 +149,7 @@ cask "viber"
 cask "wezterm"
 cask "visual-studio-code"
 cask "whatsapp"
-cask "wireshark"
+cask "wireshark-app"
 cask "yubico-authenticator"
 cask "yubico-yubikey-manager"
 cask "zen"
