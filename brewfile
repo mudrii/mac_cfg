@@ -11,9 +11,12 @@
 # brew outdated && brew upgrade --greedy --dry-run && mas outdated
 # brew bundle --file=~/brewfile --force --verbose ; brew upgrade --greedy
 # brew outdated ; brew upgrade --greedy --dry-run ; mas outdated ; brew bundle --file=~/brewfile --force ; brew upgrade --greedy
+# in nushell 
+# brew outdated ; brew upgrade --greedy --dry-run ; mas outdated  ; try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }; brew upgrade --greedy ; try { npm outdated -g --depth=0 } catch { |err| print -e $err }; npm update -g
 
 # Taps
 tap "adoptopenjdk/openjdk"
+tap "sst/tap"
 tap "nats-io/nats-tools"
 tap "netbirdio/tap"
 tap "nikitabobko/tap"
@@ -56,10 +59,12 @@ brew "nmap"
 brew "node"
 brew "nushell"
 brew "oh-my-posh"
+brew "sst/tap/opencode"
 brew "openjdk"
 brew "openssl"
 brew "p7zip"
 brew "portaudio"
+brew "pandoc"
 brew "pueue"
 brew "podman"
 brew "podman-compose"
@@ -82,6 +87,7 @@ brew "tlrc"
 brew "trippy"
 brew "tmux"
 brew "uv"
+brew "wget"
 brew "yazi" # yazi dependancy
 brew "ykman"
 brew "yq"
@@ -94,6 +100,7 @@ cask "amethyst"
 cask "arc"
 cask "audacity"
 cask "bartender"
+cask "basictex"
 cask "bitwarden"
 cask "calibre"
 cask "chatgpt"

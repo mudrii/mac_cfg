@@ -6,7 +6,7 @@ hide-env -i ATUIN_HISTORY_ID
 let ATUIN_KEYBINDING_TOKEN = $"# (random uuid)"
 
 let _atuin_pre_execution = {||
-    if ($nu | get -i history-enabled) == false {
+    if ($nu | get --optional history-enabled) == false {
         return
     }
     let cmd = (commandline)
@@ -61,9 +61,9 @@ $env.config = (
     $env.config | upsert hooks (
         $env.config.hooks
         | upsert pre_execution (
-            $env.config.hooks | get -i pre_execution | default [] | append $_atuin_pre_execution)
+            $env.config.hooks | get --optional pre_execution | default [] | append $_atuin_pre_execution)
         | upsert pre_prompt (
-            $env.config.hooks | get -i pre_prompt | default [] | append $_atuin_pre_prompt)
+            $env.config.hooks | get --optional pre_prompt | default [] | append $_atuin_pre_prompt)
     )
 )
 
