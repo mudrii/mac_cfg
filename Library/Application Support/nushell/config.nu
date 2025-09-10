@@ -45,6 +45,7 @@ $env.PATH = (
   | append '/Users/mudrii/Library/Application Support/zoxide'
   | append '/Users/mudrii/Library/Application Support/nushell/plugins'
   | append /Users/mudrii/.cargo/bin
+  | append /Users/mudrii/.local/bin
   | uniq # filter so the paths are unique
 )
 
