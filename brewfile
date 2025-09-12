@@ -84,6 +84,7 @@ brew "sevenzip" # yazi dependancy
 brew "sqlite"
 brew "sshs"
 brew "starship"
+brew "stow"
 brew "thefuck"
 brew "tlrc"
 brew "trippy"
