@@ -10,9 +10,9 @@
 # brew bundle cleanup --force --file=~/brewfile
 # brew outdated && brew upgrade --greedy --dry-run && mas outdated
 # brew bundle --file=~/brewfile --force --verbose ; brew upgrade --greedy
-# brew outdated ; brew upgrade --greedy --dry-run ; mas outdated ; brew bundle --file=~/brewfile --force ; brew upgrade --greedy
+# brew update : brew outdated ; brew upgrade --greedy --dry-run ; mas outdated ; brew bundle --file=~/brewfile --force ; brew upgrade --greedy
 # in nushell 
-# brew outdated ; brew upgrade --greedy --dry-run ; mas outdated  ; try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }; brew upgrade --greedy ; try { npm outdated -g --depth=0 } catch { |err| print -e $err }; npm update -g
+# brew update ; brew outdated ; brew upgrade --greedy --dry-run ; mas outdated  ; try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }; brew upgrade --greedy ; try { npm outdated -g --depth=0 } catch { |err| print -e $err }; npm update -g
 
 # Taps
 tap "adoptopenjdk/openjdk"
@@ -23,6 +23,8 @@ tap "nikitabobko/tap"
 tap "runpod/runpodctl"
 
 # Brews
+# brew "docker-compose"
+# brew "kubectl"
 brew "age"
 brew "asciinema"
 brew "asitop"
@@ -32,24 +34,22 @@ brew "bat"
 brew "btop"
 brew "carapace"
 brew "cmake"
-# brew "docker-compose"
 brew "eza"
-brew "fdupes"
 brew "fd" # yazi dependancy
+brew "fdupes"
 brew "ffmpeg" # yazi dependancy
 brew "ffmpegthumbnailer" # yazi dependancy
 brew "fzf" # yazi dependancy
 brew "gh"
-brew "huggingface-cli"
 brew "helix"
+brew "huggingface-cli"
 brew "imagemagick" # yazi dependancy
 brew "jj"
 brew "jq" # yazi dependancy
-# brew "kubectl"
+brew "lf"
 brew "lima"
 brew "llm"
 brew "llvm"
-brew "lf"
 brew "mas"
 brew "mlx"
 brew "nats-io/nats-tools/nats"
@@ -60,21 +60,20 @@ brew "nmap"
 brew "node"
 brew "nushell"
 brew "oh-my-posh"
-brew "sst/tap/opencode"
 brew "openjdk"
 brew "openssl"
 brew "p7zip"
-brew "portaudio"
 brew "pandoc"
-brew "pygments"
 brew "podman"
 brew "podman-compose"
 brew "podman-tui"
 brew "poppler" # yazi dependancy
 brew "portal"
+brew "portaudio"
 brew "pueue"
 brew "pv"
 brew "pyenv"
+brew "pygments"
 brew "pytorch"
 brew "rainfrog"
 brew "ripgrep" # yazi dependancy
@@ -83,12 +82,13 @@ brew "rust"
 brew "sevenzip" # yazi dependancy
 brew "sqlite"
 brew "sshs"
+brew "sst/tap/opencode"
 brew "starship"
 brew "stow"
 brew "thefuck"
 brew "tlrc"
-brew "trippy"
 brew "tmux"
+brew "trippy"
 brew "uv"
 brew "wget"
 brew "yazi" # yazi dependancy
@@ -99,11 +99,13 @@ brew "zellij"
 brew "zoxide" # yazi dependancy
 
 # Casks
+# cask "shottr"
+#cask "basictex"
+#cask "mullvad-vpn@beta"
 cask "amethyst"
 cask "arc"
 cask "audacity"
 cask "bartender"
-#cask "basictex"
 cask "bitwarden"
 cask "calibre"
 cask "chatgpt"
@@ -112,8 +114,8 @@ cask "cleanshot"
 cask "coconutbattery"
 cask "commander-one"
 cask "cyberduck"
-cask "disk-diet"
 cask "discord"
+cask "disk-diet"
 cask "downie"
 cask "drawio"
 cask "drivedx"
@@ -124,7 +126,6 @@ cask "folx"
 cask "font-meslo-lg-nerd-font"
 cask "font-symbols-only-nerd-font" # yazi dependancy
 cask "ghostty"
-# cask "ghostty@tip"
 cask "github"
 cask "google-chrome"
 cask "grammarly-desktop"
@@ -141,16 +142,14 @@ cask "monitorcontrol"
 cask "msty"
 cask "mullvad-browser"
 cask "mullvad-vpn"
-#cask "mullvad-vpn@beta"
 cask "netbird-ui"
 cask "obsidian"
 cask "ollama-app"
 cask "onyx"
+cask "pdf-squeezer"
 cask "permute"
 cask "podman-desktop"
-cask "pdf-squeezer"
 cask "raycast"
-# cask "shottr"
 cask "slack"
 cask "soulver"
 cask "soulver-cli"
@@ -160,19 +159,20 @@ cask "tg-pro"
 cask "tor-browser"
 cask "transmit"
 cask "upscayl"
-cask "voiceink"
 cask "viber"
 cask "visual-studio-code"
+cask "voiceink"
+cask "warp"
 cask "wezterm"
 cask "whatsapp"
 cask "wireshark-app"
-cask "warp"
 cask "yubico-authenticator"
 cask "yubico-yubikey-manager"
 cask "zen"
 cask "zoom"
 
 # Mac App Store apps
+# mas "Manus AI", id: 6740909540
 ## mas "Velja", id: 1607635845
 mas "Battery Monitor", id: 413678017
 mas "Dropover", id: 1355679052
@@ -180,7 +180,6 @@ mas "Encrypto", id: 935235287
 mas "Folder Preview", id: 6698876601 
 mas "HotKey", id: 975890633
 mas "Keynote", id: 409183694
-# mas "Manus AI", id: 6740909540
 mas "Meeter", id: 1510445899
 mas "Mysterium VPN", id: 6446624307
 mas "Numbers", id: 409203825
