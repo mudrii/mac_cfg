@@ -25,13 +25,15 @@ alias lsa = eza --long --all --group --header --group-directories-first --sort=t
 alias lta = eza --long --all --group --icons --tree .
 alias lt = eza --icons --tree .
 
-# path
+# path (prepend Homebrew paths for higher priority)
+use std/util "path add"
+path add "/opt/homebrew/bin"
+path add "/opt/homebrew/sbin"
+
+# path remaining custom paths after Homebrew
 $env.PATH = (
   $env.PATH
   | split row (char esep)
-  | append /opt/homebrew/bin
-  | append /opt/homebrew/sbin
-  | append /usr/bin
   | append /usr/local/bin
   | append /System/Cryptexes/App/usr/bin
   | append /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin

@@ -13,6 +13,9 @@
 # brew update : brew outdated ; brew upgrade --greedy --dry-run ; mas outdated ; brew bundle --file=~/brewfile --force ; brew upgrade --greedy
 # in nushell 
 # brew update ; brew outdated ; brew upgrade --greedy --dry-run ; mas outdated  ; try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }; brew upgrade --greedy ; try { npm outdated -g --depth=0 } catch { |err| print -e $err }; npm update -g
+# install mapackage manually >  brew install --cask cursor-cli
+# remove package mannually > brew uninstall --cask cursor-cli
+# reinstal package manually > brew reinstall --cask cursor-cli
 
 # Taps
 tap "adoptopenjdk/openjdk"
@@ -113,6 +116,8 @@ cask "claude"
 cask "cleanshot"
 cask "coconutbattery"
 cask "commander-one"
+cask "cursor"
+cask "cursor-cli"
 cask "cyberduck"
 cask "discord"
 cask "disk-diet"
@@ -152,7 +157,7 @@ cask "podman-desktop"
 cask "raycast"
 cask "slack"
 cask "soulver"
-cask "soulver-cli"
+# cask "soulver-cli"
 cask "spotify"
 cask "sublime-text"
 cask "tg-pro"
@@ -163,16 +168,16 @@ cask "viber"
 cask "visual-studio-code"
 cask "voiceink"
 cask "warp"
+cask "wechat"
 cask "wezterm"
 cask "whatsapp"
 cask "wireshark-app"
 cask "yubico-authenticator"
-cask "yubico-yubikey-manager"
+# cask "yubico-yubikey-manager"
 cask "zen"
 cask "zoom"
 
 # Mac App Store apps
-# mas "Manus AI", id: 6740909540
 ## mas "Velja", id: 1607635845
 mas "Battery Monitor", id: 413678017
 mas "Dropover", id: 1355679052
@@ -190,5 +195,4 @@ mas "Pixelmator Pro", id: 1289583905
 mas "StopTheMadness Pro", id: 6471380298
 mas "System Monitor", id: 423368786
 mas "Telegram Lite", id: 946399090
-mas "WeChat", id: 836500024
 mas "Xcode", id: 497799835

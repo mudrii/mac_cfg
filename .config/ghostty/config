@@ -1,5 +1,5 @@
-theme = catppuccin-mocha
-#theme = catppuccin-latte
+#theme = Catppuccin Mocha
+theme = Catppuccin Macchiato
 #theme = tokyonight
 font-size = 14 
 background-blur-radius = 20
