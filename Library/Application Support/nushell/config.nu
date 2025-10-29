@@ -57,6 +57,43 @@ source ~/.local/share/atuin/init.nu
 source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
 
+def allup [] {
+  brew update
+  brew outdated
+  brew upgrade --greedy --dry-run
+  mas outdated
+  try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }
+  brew upgrade --greedy --force
+  npm ls -g
+  try { npm outdated -g --depth=0 } catch { |err| print -e $err }
+  npm update -g
+  uv pip list
+  uv pip list --outdated
+  uv tool list
+  uv tool upgrade --all --no-cache
+}
+
+def brewup [] { 
+  brew update
+  brew outdated
+  brew upgrade --greedy --dry-run
+  mas outdated
+  try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }
+  brew upgrade --greedy --force
+}
+
+def npmup [] {
+  npm ls -g
+  try { npm outdated -g --depth=0 } catch { |err| print -e $err }
+  npm update -g
+}
+
+def pipup [] {
+  uv pip list
+  uv pip list --outdated
+  uv tool list
+  uv tool upgrade --all --no-cache
+}
 
 def mcfg [...args: string] {
     git --git-dir=$"($nu.home-path)/src/personal/mac_cfg" --work-tree=$"($nu.home-path)" ...$args

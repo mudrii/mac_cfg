@@ -13,6 +13,8 @@
 # brew update : brew outdated ; brew upgrade --greedy --dry-run ; mas outdated ; brew bundle --file=~/brewfile --force ; brew upgrade --greedy
 # in nushell 
 # brew update ; brew outdated ; brew upgrade --greedy --dry-run ; mas outdated  ; try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }; brew upgrade --greedy ; try { npm outdated -g --depth=0 } catch { |err| print -e $err }; npm update -g
+# invlugin pip and uv 
+# brew update ; brew outdated ; brew upgrade --greedy --dry-run ; mas outdated  ; try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }; brew upgrade --greedy --force ; npm ls -g ; try { npm outdated -g --depth=0 } catch { |err| print -e $err }; npm update -g ; uv pip list ; uv pip list ; uv pip list --outdated ; uv tool list ; uv tool upgrade --all --no-cache
 # install mapackage manually >  brew install --cask cursor-cli
 # remove package mannually > brew uninstall --cask cursor-cli
 # reinstal package manually > brew reinstall --cask cursor-cli
@@ -25,6 +27,7 @@ tap "netbirdio/tap"
 tap "nikitabobko/tap"
 tap "runpod/runpodctl"
 
+
 # Brews
 # brew "docker-compose"
 # brew "kubectl"
@@ -33,10 +36,12 @@ brew "asciinema"
 brew "asitop"
 brew "atac"
 brew "atuin"
+brew "awscli"
 brew "bat"
 brew "btop"
 brew "carapace"
 brew "cmake"
+brew "exiftool"
 brew "eza"
 brew "fd" # yazi dependancy
 brew "fdupes"
@@ -44,6 +49,7 @@ brew "ffmpeg" # yazi dependancy
 brew "ffmpegthumbnailer" # yazi dependancy
 brew "fzf" # yazi dependancy
 brew "gh"
+brew "glow" # markdown cli document viewer
 brew "helix"
 brew "huggingface-cli"
 brew "imagemagick" # yazi dependancy
@@ -65,8 +71,10 @@ brew "nushell"
 brew "oh-my-posh"
 brew "openjdk"
 brew "openssl"
+brew "opentofu"
 brew "p7zip"
 brew "pandoc"
+brew "pipx"
 brew "podman"
 brew "podman-compose"
 brew "podman-tui"
@@ -83,6 +91,7 @@ brew "ripgrep" # yazi dependancy
 brew "runpod/runpodctl/runpodctl"
 brew "rust"
 brew "sevenzip" # yazi dependancy
+brew "sha3sum"
 brew "sqlite"
 brew "sshs"
 brew "sst/tap/opencode"
@@ -103,11 +112,14 @@ brew "zoxide" # yazi dependancy
 
 # Casks
 # cask "shottr"
-#cask "basictex"
-#cask "mullvad-vpn@beta"
+# cask "soulver-cli"
+# cask "yubico-yubikey-manager"
+# cask "basictex"
+# cask "mullvad-vpn@beta"
 cask "amethyst"
 cask "arc"
 cask "audacity"
+cask "balenaetcher"
 cask "bartender"
 cask "bitwarden"
 cask "calibre"
@@ -133,10 +145,13 @@ cask "font-symbols-only-nerd-font" # yazi dependancy
 cask "ghostty"
 cask "github"
 cask "google-chrome"
+cask "gcloud-cli"
+#cask "google-cloud-sdk"
 cask "grammarly-desktop"
 cask "handbrake-app"
 cask "iina"
 cask "imageoptim"
+cask "iterm2"
 cask "keka"
 cask "keycastr"
 cask "latest"
@@ -157,7 +172,6 @@ cask "podman-desktop"
 cask "raycast"
 cask "slack"
 cask "soulver"
-# cask "soulver-cli"
 cask "spotify"
 cask "sublime-text"
 cask "tg-pro"
@@ -173,7 +187,6 @@ cask "wezterm"
 cask "whatsapp"
 cask "wireshark-app"
 cask "yubico-authenticator"
-# cask "yubico-yubikey-manager"
 cask "zen"
 cask "zoom"
 
@@ -183,7 +196,6 @@ mas "Battery Monitor", id: 413678017
 mas "Dropover", id: 1355679052
 mas "Encrypto", id: 935235287
 mas "Folder Preview", id: 6698876601 
-mas "HotKey", id: 975890633
 mas "Keynote", id: 409183694
 mas "Meeter", id: 1510445899
 mas "Mysterium VPN", id: 6446624307

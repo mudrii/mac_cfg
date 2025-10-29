@@ -1,19 +1,24 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "b12a9ab"
-hash = "e0ada736ea676c2bbb3ec705a49526ef"
+rev = "8f1d971"
+hash = "63b6c222bf2103b3023389dde5e2ecfe"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:diff"
-rev = "b12a9ab"
-hash = "7a08e303167d5b655c06da6d570f0333"
+rev = "8f1d971"
+hash = "82376c3381ae915fd799d40f4dd4c6cd"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "b12a9ab"
-hash = "2f1053f89d1a301a648ab181d0948e38"
+rev = "8f1d971"
+hash = "8ad3e90b079190b4905f24a44f4ca06b"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
-rev = "68326b4"
-hash = "2ac87e1b3a61f5887472899e86535d29"
+rev = "f6b425a"
+hash = "14b111562c00eb1917fe3ca3ae9bb771"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-macchiato"
+rev = "f6b425a"
+hash = "4127d9d6c96862ed96a7a64b3973a5af"
