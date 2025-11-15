@@ -61,9 +61,11 @@ def allup [] {
   brew update
   brew outdated
   brew upgrade --greedy --dry-run
+  try { brew bundle --file=~/brewfile } catch { |err| print -e $err }
+  try { brew upgrade --greedy } catch { |err| print -e $err }
+  mas list
   mas outdated
-  try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }
-  brew upgrade --greedy --force
+  try { mas upgrade } catch { |err| print -e $err }
   npm ls -g
   try { npm outdated -g --depth=0 } catch { |err| print -e $err }
   npm update -g
@@ -78,21 +80,27 @@ def brewup [] {
   brew outdated
   brew upgrade --greedy --dry-run
   mas outdated
-  try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }
-  brew upgrade --greedy --force
+  try { brew bundle --file=~/brewfile } catch { |err| print -e $err }
+  try { brew upgrade --greedy --force } catch { |err| print -e $err }
+}
+
+def masup [] { 
+  mas list
+  mas outdated
+  try { mas upgrade } catch { |err| print -e $err }
 }
 
 def npmup [] {
   npm ls -g
   try { npm outdated -g --depth=0 } catch { |err| print -e $err }
-  npm update -g
+  try { npm update -g } catch { |err| print -e $err }
 }
 
 def pipup [] {
   uv pip list
   uv pip list --outdated
   uv tool list
-  uv tool upgrade --all --no-cache
+  try { uv tool upgrade --all --no-cache } catch { |err| print -e $err }
 }
 
 def mcfg [...args: string] {

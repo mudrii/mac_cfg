@@ -6,3 +6,4 @@ background-blur-radius = 20
 mouse-hide-while-typing = true
 window-decoration = true
 keybind = global:ctrl+s=toggle_quick_terminal
+clipboard-paste-protection = false
