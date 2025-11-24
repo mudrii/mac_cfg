@@ -66,6 +66,7 @@ def allup [] {
   mas list
   mas outdated
   try { mas upgrade } catch { |err| print -e $err }
+  try { topgrade -v } catch { |err| print -e $err }
   npm ls -g
   try { npm outdated -g --depth=0 } catch { |err| print -e $err }
   npm update -g
@@ -105,4 +106,8 @@ def pipup [] {
 
 def mcfg [...args: string] {
     git --git-dir=$"($nu.home-path)/src/personal/mac_cfg" --work-tree=$"($nu.home-path)" ...$args
+}
+
+def topup [] { 
+  try { topgrade -v } catch { |err| print -e $err }
 }
