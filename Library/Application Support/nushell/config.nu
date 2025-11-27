@@ -66,7 +66,7 @@ def allup [] {
   mas list
   mas outdated
   try { mas upgrade } catch { |err| print -e $err }
-  try { topgrade -v } catch { |err| print -e $err }
+  try { topgrade -v -c } catch { |err| print -e $err }
   npm ls -g
   try { npm outdated -g --depth=0 } catch { |err| print -e $err }
   npm update -g
@@ -109,5 +109,5 @@ def mcfg [...args: string] {
 }
 
 def topup [] { 
-  try { topgrade -v } catch { |err| print -e $err }
+  try { topgrade -v -c } catch { |err| print -e $err }
 }
