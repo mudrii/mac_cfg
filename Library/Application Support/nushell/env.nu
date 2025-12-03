@@ -18,6 +18,12 @@
 # them for future reference.
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 
+$env.CLOUDSDK_PYTHON = "/opt/homebrew/bin/python3" 
+
+# pyenv configuration
+$env.PYENV_ROOT = (^/opt/homebrew/bin/pyenv root | str trim)
+$env.PATH = ($env.PATH | prepend ($env.PYENV_ROOT | path join "shims"))
+
 def --env y [...args] {
 	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
 	yazi ...$args --cwd-file $tmp

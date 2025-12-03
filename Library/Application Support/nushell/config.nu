@@ -111,3 +111,12 @@ def mcfg [...args: string] {
 def topup [] { 
   try { topgrade -v -c } catch { |err| print -e $err }
 }
+
+# pyenv shell command wrapper
+def --env "pyenv shell" [version: string] {
+    $env.PYENV_VERSION = $version
+}
+
+def --env "pyenv shell --unset" [] {
+    hide-env PYENV_VERSION
+}
