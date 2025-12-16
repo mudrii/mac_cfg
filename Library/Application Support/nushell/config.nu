@@ -104,10 +104,6 @@ def pipup [] {
   try { uv tool upgrade --all --no-cache } catch { |err| print -e $err }
 }
 
-def mcfg [...args: string] {
-    git --git-dir=$"($nu.home-path)/src/personal/mac_cfg" --work-tree=$"($nu.home-path)" ...$args
-}
-
 def topup [] { 
   try { topgrade -v -c } catch { |err| print -e $err }
 }
@@ -119,4 +115,8 @@ def --env "pyenv shell" [version: string] {
 
 def --env "pyenv shell --unset" [] {
     hide-env PYENV_VERSION
+}
+
+def mcfg [...args: string] {
+    git --git-dir=$"($nu.home-path)/src/personal/mac_cfg" --work-tree=$"($nu.home-path)" ...$args
 }

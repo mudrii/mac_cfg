@@ -4,7 +4,6 @@
 [include]
 # paths = ["/etc/topgrade.toml"]
 
-
 [misc]
 # On Unix systems, Topgrade should not be run as root, it
 # will run commands with sudo or equivalent where needed.
@@ -17,14 +16,121 @@
 # This avoids a blocking password prompt in the middle of an unattended run
 # (default: false)
 # pre_sudo = false
+pre_sudo = true
 
 # Sudo command to be used
 # sudo_command = "sudo"
 
 # Disable specific steps - same options as the command line flag
 # disable = ["system", "emacs"]
-#disable = ["shell", "vim", "git_repos", "gcloud", "pyenv"]
-disable = ["git_repos","pyenv"]
+#disable = ["shell", "vim", "git_repos", "gcloud", "pyenv", "uv"]
+disable = [
+  # macOS tools not installed
+  "macports",
+  "xcodes",
+  "sparkle",
+  "yadm", # Nix ecosystem
+  "nix",
+  "nix_helper",
+  "guix",
+  "home_manager", # Version managers not installed
+  "asdf",
+  "mise",
+  "pkgin", # Shell plugin managers (covers all zsh/bash/fish plugins)
+  "shell", # Tools not installed
+  "tmux",
+  "pearl",
+  "sdkman",
+  "rcm",
+  "maza",
+  "hyprpm",
+  "atuin",
+  "atom",
+  "fossil",
+  "elan",
+  "rye",
+  "rustup",
+  "juliaup",
+  "dotnet",
+  "choosenim",
+  "cargo",
+  "flutter",
+  "go",
+  "emacs",
+  "opam",
+  "vcpkg",
+  "pipxu",
+  "vscode_insiders",
+  "vscodium",
+  "vscodium_insiders",
+  "conda",
+  "mamba",
+  "pyenv",
+  "pixi",
+  "miktex",
+  "pip_review",
+  "pip_review_local",
+  "pipupgrade",
+  "ghcup",
+  "stack",
+  "tlmgr",
+  "myrepos",
+  "chezmoi",
+  "jetpack",
+  "vim",
+  "kakoune",
+  "volta_packages",
+  "deno",
+  "composer",
+  "krew",
+  "helm",
+  "gem",
+  "ruby_gems",
+  "julia",
+  "haxelib",
+  "sheldon",
+  "stew",
+  "rtcl",
+  "bin",
+  "micro",
+  "raco",
+  "spicetify",
+  "bob",
+  "certbot",
+  "git_repos",
+  "clam_av_db",
+  "platformio_core",
+  "lensfun",
+  "poetry",
+  "zvm",
+  "aqua",
+  "bun",
+  "bun_packages",
+  "zigup", # JetBrains (none installed)
+  "jetbrains_toolbox",
+  "jetbrains_aqua",
+  "jetbrains_clion",
+  "jetbrains_datagrip",
+  "jetbrains_dataspell",
+  "jetbrains_gateway",
+  "jetbrains_goland",
+  "jetbrains_idea",
+  "jetbrains_mps",
+  "jetbrains_phpstorm",
+  "jetbrains_pycharm",
+  "jetbrains_rider",
+  "jetbrains_rubymine",
+  "jetbrains_rustrover",
+  "jetbrains_webstorm",
+  "android_studio", # Other
+  "vagrant",
+  "typst",
+  "powershell",
+  "falconf",
+]
+
+# Only run specific steps - same options as the command line flag
+# only = ["system", "emacs"]
 
 # Ignore failures for these steps
 # ignore_failures = ["powershell"]
@@ -48,7 +154,7 @@ disable = ["git_repos","pyenv"]
 # display_time = true
 
 # Don't ask for confirmations (no default value)
-# assume_yes = true
+assume_yes = true
 
 # Do not ask to retry failed steps (default: false)
 # no_retry = true
@@ -56,7 +162,7 @@ disable = ["git_repos","pyenv"]
 # Show the reason for skipped steps (default: false)
 # This has no effect if the "only" option is specified
 # show_skipped = true
-show_skipped = false 
+show_skipped = false
 
 # Run inside tmux (default: false)
 # run_in_tmux = true
@@ -68,7 +174,7 @@ show_skipped = false
 # tmux_session_mode = "attach_if_not_in_session"
 
 # Cleanup temporary or old files (default: false)
-# cleanup = true
+cleanup = true
 
 # Send a notification for every step (default: false)
 # notify_each_step = false
@@ -99,22 +205,18 @@ show_skipped = false
 # (default: true)
 # show_distribution_summary = false
 
-
 # Commands to run before anything
 [pre_commands]
 # "Emacs Snapshot" = "rm -rf ~/.emacs.d/elpa.bak && cp -rl ~/.emacs.d/elpa ~/.emacs.d/elpa.bak"
-
 
 # Commands to run after anything
 [post_commands]
 # "Emacs Snapshot" = "rm -rf ~/.emacs.d/elpa.bak && cp -rl ~/.emacs.d/elpa ~/.emacs.d/elpa.bak"
 
-
 # Custom commands
 [commands]
 # "Python Environment" = "~/dev/.env/bin/pip install -i https://pypi.python.org/simple -U --upgrade-strategy eager jupyter"
 # "Custom command using interactive shell (unix)" = "-i vim_upgrade"
-
 
 [python]
 # enable_pip_review = true                         ###disabled by default
@@ -129,7 +231,6 @@ show_skipped = false
 # (default: false)
 # poetry_force_self_update = true
 
-
 [conda]
 # Additional named conda environments to update (`conda env update -n env_name`)
 # env_names = [
@@ -142,10 +243,8 @@ show_skipped = false
 #     "~/experiments/.conda/"
 # ]
 
-
 [composer]
 # self_update = true
-
 
 [brew]
 # For the BrewCask step
@@ -163,16 +262,15 @@ show_skipped = false
 # If `Repo Cask Upgrade` does not exist, then use the `--greedy_auto_updates` option.
 # NOTE: the above entry `greedy_cask` contains this entry, though you can enable
 # both of them, they won't clash with each other.
-# greedy_auto_updates = true
+greedy_auto_updates = true
 
 # For the BrewFormula step
 # Execute `brew autoremove` after the step.
-# autoremove = true
+autoremove = true
 
 # For the BrewFormula step
 # Upgrade formulae built from the HEAD branch; `brew upgrade --fetch-HEAD`
 # fetch_head = true
-
 
 [linux]
 # Arch Package Manager to use.
@@ -223,20 +321,17 @@ show_skipped = false
 # Extra Home Manager arguments
 # home_manager_arguments = ["--flake", "file"]
 
-
 [mandb]
 # Enable the mandb step (to update manual entries).
 # Mandb is updated in the background by a service on most systems by default.
 # (default: false)
 # enable = true
 
-
 [pkgfile]
 # Enable the pkgfile step (to update the pkgfile database).
 # Pkgfile is sometimes installed by default, but often not used and heavy to update.
 # (default: false)
 # enable = true
-
 
 [git]
 # How many repos to pull at max in parallel
@@ -253,7 +348,6 @@ show_skipped = false
 
 # Arguments to pass Git when pulling Repositories
 # arguments = "--rebase --autostash"
-
 
 [windows]
 # Manually select Windows updates
@@ -288,7 +382,6 @@ show_skipped = false
 # (default: false)
 # winget_use_sudo = true
 
-
 [chezmoi]
 # Exclude encrypted files from update
 # (default: false)
@@ -298,26 +391,21 @@ show_skipped = false
 # Use sudo if the NPM directory isn't owned by the current user
 # use_sudo = true
 
-
 [yarn]
 # Run `yarn global upgrade` with `sudo`
 # use_sudo = true
-
 
 [deno]
 # Upgrade deno executable to the given version.
 # version = "stable"
 
-
 [vim]
 # For `vim-plug`, execute `PlugUpdate!` instead of `PlugUpdate`
 # force_plug_update = true
 
-
 [firmware]
 # Offer to update firmware; if false just check for and display available updates
 # upgrade = true
-
 
 [vagrant]
 # Vagrant directories
@@ -329,11 +417,9 @@ show_skipped = false
 # Always suspend vagrant boxes instead of powering off
 # always_suspend = true
 
-
 [flatpak]
 # Use sudo for updating the system-wide installation
 # use_sudo = true
-
 
 [distrobox]
 # use_root = false
