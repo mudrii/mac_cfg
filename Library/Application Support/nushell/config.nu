@@ -118,5 +118,5 @@ def --env "pyenv shell --unset" [] {
 }
 
 def mcfg [...args: string] {
-    git --git-dir=$"($nu.home-path)/src/personal/mac_cfg" --work-tree=$"($nu.home-path)" ...$args
+    git --git-dir=$"($env.HOME)/src/personal/mac_cfg" --work-tree=$"($env.HOME)" ...$args
 }

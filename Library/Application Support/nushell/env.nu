@@ -20,6 +20,8 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 
 $env.CLOUDSDK_PYTHON = "/opt/homebrew/bin/python3" 
 
+$env.XDG_DATA_DIRS = "/opt/homebrew/share"
+
 # pyenv configuration
 $env.PYENV_ROOT = (^/opt/homebrew/bin/pyenv root | str trim)
 $env.PATH = ($env.PATH | prepend ($env.PYENV_ROOT | path join "shims"))
