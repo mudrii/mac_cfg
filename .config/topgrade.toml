@@ -38,13 +38,13 @@ disable = [
   "mise",
   "pkgin", # Shell plugin managers (covers all zsh/bash/fish plugins)
   "shell", # Tools not installed
-  "tmux",
+  # "tmux",  # ENABLED: TPM plugin updates
   "pearl",
   "sdkman",
   "rcm",
   "maza",
   "hyprpm",
-  "atuin",
+  "atuin",  # Updates via Homebrew, not self-update
   "atom",
   "fossil",
   "elan",

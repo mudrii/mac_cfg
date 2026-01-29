@@ -1,9 +1,115 @@
-#theme = Catppuccin Mocha
+# =============================================================================
+# Ghostty Terminal Configuration
+# =============================================================================
+# Documentation: https://ghostty.org/docs/config
+
+# -----------------------------------------------------------------------------
+# Theme & Appearance
+# -----------------------------------------------------------------------------
 theme = Catppuccin Macchiato
+#theme = Catppuccin Mocha
 #theme = tokyonight
-font-size = 14 
+
+# Background blur (macOS)
 background-blur-radius = 20
-mouse-hide-while-typing = true
+
+# -----------------------------------------------------------------------------
+# Font Configuration
+# -----------------------------------------------------------------------------
+# Use a Nerd Font for icon support in terminal apps
+font-family = "MesloLGL Nerd Font Mono"
+# Alternative fonts (uncomment to use):
+# font-family = "MesloLGLDZ Nerd Font Mono"
+# font-family = "JetBrainsMono Nerd Font"
+# font-family = "FiraCode Nerd Font"
+
+font-size = 14
+
+# Font features (ligatures, etc.)
+# font-feature = "calt"  # Enable contextual alternates/ligatures
+
+# -----------------------------------------------------------------------------
+# Cursor
+# -----------------------------------------------------------------------------
+cursor-style = block
+cursor-style-blink = true
+
+# Cursor color (uses theme if not set)
+# cursor-color = #f5e0dc
+
+# -----------------------------------------------------------------------------
+# Window
+# -----------------------------------------------------------------------------
 window-decoration = true
-keybind = global:ctrl+s=toggle_quick_terminal
+window-padding-x = 8
+window-padding-y = 8
+window-save-state = always
+
+# Window size (columns x rows)
+# window-width = 120
+# window-height = 36
+
+# -----------------------------------------------------------------------------
+# Mouse
+# -----------------------------------------------------------------------------
+mouse-hide-while-typing = true
+
+# Mouse scroll multiplier
+# mouse-scroll-multiplier = 1
+
+# -----------------------------------------------------------------------------
+# Clipboard & Selection
+# -----------------------------------------------------------------------------
+# Disable paste protection warning (set to true for security)
 clipboard-paste-protection = false
+
+# Copy on select
+copy-on-select = true
+
+# -----------------------------------------------------------------------------
+# Shell Integration
+# -----------------------------------------------------------------------------
+# Detect shell and enable integration features
+shell-integration = detect
+shell-integration-features = cursor,sudo,title
+
+# -----------------------------------------------------------------------------
+# Keybindings
+# -----------------------------------------------------------------------------
+# Global hotkey to toggle quick terminal (dropdown)
+keybind = global:ctrl+s=toggle_quick_terminal
+
+# Quick terminal settings
+quick-terminal-position = top
+quick-terminal-screen = main
+# quick-terminal-animation-duration = 0.2
+
+# Custom keybindings (examples)
+# keybind = ctrl+shift+c=copy_to_clipboard
+# keybind = ctrl+shift+v=paste_from_clipboard
+# keybind = ctrl+shift+n=new_window
+# keybind = ctrl+shift+t=new_tab
+# keybind = ctrl+shift+w=close_surface
+
+# -----------------------------------------------------------------------------
+# Performance
+# -----------------------------------------------------------------------------
+# Use a single instance (faster new windows)
+gtk-single-instance = true
+
+# -----------------------------------------------------------------------------
+# Scrollback
+# -----------------------------------------------------------------------------
+# scrollback-limit = 10000
+
+# -----------------------------------------------------------------------------
+# Bell
+# -----------------------------------------------------------------------------
+# visual-bell = true
+# audible-bell = false
+
+# -----------------------------------------------------------------------------
+# Links
+# -----------------------------------------------------------------------------
+# Click to open URLs
+link-url = true

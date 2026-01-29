@@ -11,9 +11,9 @@
 # brew outdated && brew upgrade --greedy --dry-run && mas outdated
 # brew bundle --file=~/brewfile --force --verbose ; brew upgrade --greedy
 # brew update : brew outdated ; brew upgrade --greedy --dry-run ; mas outdated ; brew bundle --file=~/brewfile --force ; brew upgrade --greedy
-# in nushell 
+# in nushell
 # brew update ; brew outdated ; brew upgrade --greedy --dry-run ; mas outdated  ; try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }; brew upgrade --greedy ; try { npm outdated -g --depth=0 } catch { |err| print -e $err }; npm update -g
-# invlugin pip and uv 
+# invlugin pip and uv
 # brew update ; brew outdated ; brew upgrade --greedy --dry-run ; mas outdated  ; try { brew bundle --file=~/brewfile --force } catch { |err| print -e $err }; brew upgrade --greedy --force ; npm ls -g ; try { npm outdated -g --depth=0 } catch { |err| print -e $err }; npm update -g ; uv pip list ; uv pip list ; uv pip list --outdated ; uv tool list ; uv tool upgrade --all --no-cache
 # install mapackage manually >  brew install --cask cursor-cli
 # remove package mannually > brew uninstall --cask cursor-cli
@@ -34,6 +34,7 @@ tap "oven-sh/bun"
 # brew "kubectl"
 brew "age"
 brew "asciinema"
+brew "asdf"
 brew "asitop"
 brew "atac"
 brew "atuin"
@@ -47,6 +48,9 @@ brew "cmake"
 brew "crane"
 brew "czkawka"
 brew "dust"
+brew "erlang"
+brew "elixir"
+brew "elixir-ls"
 brew "exiftool"
 brew "eza"
 brew "fd" # yazi dependancy
@@ -67,14 +71,14 @@ brew "lf"
 brew "lima"
 brew "llm"
 brew "llvm"
+brew "lua-language-server"
 brew "mas"
-#brew "mlx"
-#brew "mlx-lm"
-brew "nats-io/nats-tools/nats"
-brew "nats-server"
-brew "nats-streaming-server"
+# brew "nats-io/nats-tools/nats"
+# brew "nats-server"
+# brew "nats-streaming-server"
 brew "ncdu"
 brew "ncurses"
+brew "neovim"
 brew "nmap"
 brew "node"
 brew "nushell"
@@ -105,13 +109,14 @@ brew "sha3sum"
 brew "skopeo"
 brew "sqlite"
 brew "sshs"
-brew "sst/tap/opencode"
 brew "starship"
 brew "stow"
 brew "thefuck"
 brew "tlrc"
 brew "tmux"
 brew "topgrade"
+brew "tree-sitter"
+brew "tree-sitter-cli"
 brew "trippy"
 brew "uv"
 brew "wget"
@@ -121,6 +126,8 @@ brew "yq"
 brew "yubikey-personalization"
 brew "zellij"
 brew "zoxide" # yazi dependancy
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 
 # Casks
 # cask "shottr"
@@ -159,6 +166,7 @@ cask "google-chrome"
 cask "gcloud-cli"
 cask "grammarly-desktop"
 cask "handbrake-app"
+cask "helium-browser"
 cask "iina"
 cask "imageoptim"
 cask "iterm2"
@@ -208,7 +216,7 @@ cask "zoom"
 # mas "Battery Monitor", id: 413678017
 # mas "Dropover", id: 1355679052
 # mas "Encrypto", id: 935235287
-# mas "Folder Preview", id: 6698876601 
+# mas "Folder Preview", id: 6698876601
 # mas "Keynote", id: 409183694
 # mas "Meeter", id: 1510445899
 # mas "Mysterium VPN", id: 6446624307

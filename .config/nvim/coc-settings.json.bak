@@ -1,0 +1,67 @@
+{
+  "suggest.noselect": true,
+  "suggest.enablePreselect": false,
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.timeout": 5000,
+  "suggest.enablePreview": true,
+  "suggest.floatEnable": true,
+  "suggest.detailField": "abbr",
+  "suggest.snippetIndicator": " ►",
+  "diagnostic.errorSign": "✘",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "python",
+    "html",
+    "css",
+    "markdown",
+    "yaml",
+    "elixir"
+  ],
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "eslint.autoFixOnSave": true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.semi": false,
+  "yaml.schemas": {
+    "kubernetes": "/*.yaml"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["package.json"],
+      "url": "https://json.schemastore.org/package.json"
+    },
+    {
+      "fileMatch": ["tsconfig.json", "tsconfig.*.json"],
+      "url": "https://json.schemastore.org/tsconfig.json"
+    }
+  ],
+  "languageserver": {
+    "nix": {
+      "command": "nil",
+      "filetypes": ["nix"],
+      "rootPatterns": ["flake.nix", "default.nix", "shell.nix"]
+    },
+    "elixir": {
+      "command": "/opt/homebrew/bin/elixir-ls",
+      "filetypes": ["elixir", "eelixir", "heex"],
+      "rootPatterns": ["mix.exs"],
+      "settings": {
+        "elixirLS": {
+          "dialyzerEnabled": true,
+          "fetchDeps": false,
+          "enableTestLenses": true,
+          "suggestSpecs": true
+        }
+      }
+    }
+  },
+  "elixir.pathToElixirLS": "/opt/homebrew/bin/elixir-ls"
+}
