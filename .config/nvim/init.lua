@@ -20,6 +20,32 @@
 -- ============================================
 
 -- ============================================
+-- LEADER KEY (must be before plugins)
+-- ============================================
+-- Set Space as the leader key (most common choice)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- ============================================
+-- SHELL SETTINGS (must be before plugins)
+-- ============================================
+-- Ensure shell settings are correct for macOS
+-- This fixes issues with fzf and other shell-dependent plugins
+-- Forces zsh even when Neovim is launched from Nushell or other shells
+vim.opt.shell = "/bin/zsh"
+vim.opt.shellcmdflag = "-c"
+vim.opt.shellquote = ""
+vim.opt.shellxquote = ""
+vim.env.SHELL = "/bin/zsh"
+
+-- ============================================
+-- CLIPBOARD SETTINGS
+-- ============================================
+-- Sync with system clipboard automatically
+-- Any yank (y) will copy to system clipboard
+vim.opt.clipboard = "unnamedplus"
+
+-- ============================================
 -- PLUGIN MANAGER: lazy.nvim
 -- ============================================
 -- Bootstrap lazy.nvim (auto-installs on first run)
@@ -325,15 +351,50 @@ require("lazy").setup({
   --   <C-v>  - Open in vertical split
   --   <C-j>/<C-k> - Navigate results
   -- fzf is installed via Homebrew, just load the plugin
-  { "junegunn/fzf", dir = "/opt/homebrew/opt/fzf" },
+  {
+    "junegunn/fzf",
+    name = "fzf",
+    dir = "/opt/homebrew/opt/fzf",
+    build = "./install --all",
+  },
   {
     "junegunn/fzf.vim",
+    dependencies = { "fzf" },
+    init = function()
+      -- Set FZF_DEFAULT_COMMAND before plugin loads
+      vim.env.FZF_DEFAULT_COMMAND = "fd --type f --hidden --follow --exclude .git"
+    end,
     config = function()
       vim.keymap.set("n", "<C-p>", ":Files<CR>", { silent = true, desc = "Find files" })
       vim.keymap.set("n", "<leader>ff", ":Files<CR>", { silent = true, desc = "Find files" })
       vim.keymap.set("n", "<leader>fg", ":Rg<CR>", { silent = true, desc = "Grep files" })
       vim.keymap.set("n", "<leader>fb", ":Buffers<CR>", { silent = true, desc = "Find buffers" })
       vim.keymap.set("n", "<leader>fh", ":History<CR>", { silent = true, desc = "Find history" })
+    end,
+  },
+
+  -- ==========================================
+  -- MARKDOWN: Glow preview
+  -- ==========================================
+  -- Documentation: https://github.com/ellisonleao/glow.nvim
+  --
+  -- Commands:
+  --   :Glow          - Preview current markdown file
+  --   :Glow!         - Close preview window
+  --
+  -- Keymaps:
+  --   <leader>mp     - Preview markdown (normal mode)
+  {
+    "ellisonleao/glow.nvim",
+    cmd = "Glow",
+    ft = "markdown",
+    config = function()
+      require("glow").setup({
+        border = "rounded",
+        width_ratio = 0.8,
+        height_ratio = 0.8,
+      })
+      vim.keymap.set("n", "<leader>mp", ":Glow<CR>", { silent = true, desc = "Markdown preview" })
     end,
   },
 
