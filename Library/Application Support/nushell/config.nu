@@ -73,9 +73,9 @@ path add --append /opt/podman/bin
 path add --append /Applications/iTerm.app/Contents/Resources/utilities
 
 # User-specific paths
-path add --append ($env.HOME | path join "Library/Application Support/zoxide")
-path add --append ($env.HOME | path join "Library/Application Support/nushell/plugins")
-path add --append ($env.HOME | path join ".cargo/bin")
+path add --append ($nu.home-dir | path join "Library/Application Support/zoxide")
+path add --append ($nu.home-dir | path join "Library/Application Support/nushell/plugins")
+path add --append ($nu.home-dir | path join ".cargo/bin")
 
 # Deduplicate PATH entries
 $env.PATH = ($env.PATH | uniq)
@@ -107,9 +107,9 @@ source ~/.cache/carapace/init.nu
 # Uses fzf with bat preview for syntax highlighting
 # Note: Preview command uses sh -c to handle bash-style || operator
 def vf [] {
-    let file = (fzf --preview "sh -c 'bat --style=numbers --color=always {} 2>/dev/null || cat {}'" --preview-window=right:60%)
-    if ($file | is-not-empty) {
-        nvim $file
+    let result = (fzf --preview "sh -c 'bat --style=numbers --color=always {} 2>/dev/null || cat {}'" --preview-window=right:60% | complete)
+    if $result.exit_code == 0 and ($result.stdout | str trim | is-not-empty) {
+        nvim ($result.stdout | str trim)
     }
 }
 
@@ -117,14 +117,16 @@ def vf [] {
 # Usage: vg "search pattern"
 # Note: Preview command uses sh -c to handle bash-style || operator
 def vg [pattern: string] {
-    let selection = (
+    let result = (
         rg --line-number --no-heading --color=always $pattern
         | fzf --ansi
             --delimiter ':'
             --preview "sh -c 'bat --style=numbers --color=always --highlight-line {2} {1} 2>/dev/null || cat {1}'"
             --preview-window=right:60%
+        | complete
     )
-    if ($selection | is-not-empty) {
+    if $result.exit_code == 0 and ($result.stdout | str trim | is-not-empty) {
+        let selection = ($result.stdout | str trim)
         let parts = ($selection | split row ':')
         let file = ($parts | get 0)
         let line = ($parts | get 1)
@@ -136,9 +138,9 @@ def vg [pattern: string] {
 # Fuzzy find directory, cd into it, and open neovim
 # Useful for quickly jumping into projects
 def --env vcd [] {
-    let dir = (fd --type d | fzf --preview 'ls -la {}')
-    if ($dir | is-not-empty) {
-        cd $dir
+    let result = (fd --type d | fzf --preview 'ls -la {}' | complete)
+    if $result.exit_code == 0 and ($result.stdout | str trim | is-not-empty) {
+        cd ($result.stdout | str trim)
         nvim .
     }
 }
@@ -156,10 +158,25 @@ def ll [] {
 # Fuzzy find and cd into directory
 # Uses fd for fast directory finding and fzf for selection
 def --env cdf [] {
-    let dir = (fd --type d | fzf)
-    if ($dir | is-not-empty) {
-        cd $dir
+    let result = (fd --type d | fzf | complete)
+    if $result.exit_code == 0 and ($result.stdout | str trim | is-not-empty) {
+        cd ($result.stdout | str trim)
     }
+}
+
+# -----------------------------------------------------------------------------
+# Yazi File Manager Integration
+# -----------------------------------------------------------------------------
+# Open yazi and cd to its exit directory
+# This allows yazi to change the shell's working directory
+def --env y [...args] {
+    let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+    yazi ...$args --cwd-file $tmp
+    let cwd = (open $tmp)
+    if $cwd != "" and $cwd != $env.PWD {
+        cd $cwd
+    }
+    rm -fp $tmp
 }
 
 # -----------------------------------------------------------------------------
@@ -204,18 +221,18 @@ def uvup [] {
 }
 
 # Update system Python packages via uv
-# Note: Uses Python 3.14 - update version as needed
+# Dynamically detects Python version
 def pipup [] {
-    const PYTHON_VERSION = "3.14"
+    let python_version = (python3 --version | parse "Python {v}" | get v.0 | split row '.' | take 2 | str join '.')
 
-    print $"Current packages (Python ($PYTHON_VERSION)):"
-    uv pip list --python $PYTHON_VERSION --system
+    print $"Current packages \(Python ($python_version)\):"
+    uv pip list --python $python_version --system
 
     print "\nOutdated packages:"
-    uv pip list --python $PYTHON_VERSION --system --outdated
+    uv pip list --python $python_version --system --outdated
 
     # Parse outdated packages and upgrade each
-    let packages = (uv pip list --python $PYTHON_VERSION --system --outdated
+    let packages = (uv pip list --python $python_version --system --outdated
         | lines
         | skip 2
         | each { |line| $line | split row ' ' | first }
@@ -225,7 +242,7 @@ def pipup [] {
         print $"\nUpgrading ($packages | length) packages..."
         $packages | each { |pkg|
             print $"Upgrading ($pkg)..."
-            uv pip install --python $PYTHON_VERSION --system --break-system-packages --upgrade $pkg
+            uv pip install --python $python_version --system --break-system-packages --upgrade $pkg
         }
     } else {
         print "\nAll packages are up to date."
@@ -251,8 +268,31 @@ def --env "pyenv shell --unset" [] {
 # Git Dotfiles Management
 # -----------------------------------------------------------------------------
 
+# Completion for mcfg - common git subcommands
+def "nu-complete mcfg" [] {
+    [
+        { value: "status", description: "Show working tree status" }
+        { value: "add", description: "Add file contents to the index" }
+        { value: "commit", description: "Record changes to the repository" }
+        { value: "push", description: "Update remote refs" }
+        { value: "pull", description: "Fetch and integrate with remote" }
+        { value: "diff", description: "Show changes between commits" }
+        { value: "log", description: "Show commit logs" }
+        { value: "ls-files", description: "List tracked files" }
+        { value: "ls-tree", description: "List tree objects (files in commits)" }
+        { value: "checkout", description: "Switch branches or restore files" }
+        { value: "branch", description: "List, create, or delete branches" }
+        { value: "stash", description: "Stash changes in dirty working directory" }
+        { value: "reset", description: "Reset current HEAD to specified state" }
+        { value: "restore", description: "Restore working tree files" }
+    ]
+}
+
 # Manage dotfiles using bare git repository
 # Usage: mcfg status, mcfg add <file>, mcfg commit -m "msg", etc.
-def mcfg [...args: string] {
-    git --git-dir=$"($env.HOME)/src/personal/mac_cfg" --work-tree=$"($env.HOME)" ...$args
+def mcfg [
+    cmd: string@"nu-complete mcfg"  # Git subcommand
+    ...args: string                  # Additional arguments
+] {
+    git --git-dir=$"($nu.home-dir)/src/personal/mac_cfg" --work-tree=$"($nu.home-dir)" $cmd ...$args
 }

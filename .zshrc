@@ -162,6 +162,9 @@ export PATH
 # Key Bindings
 # ============================================================================
 
+# Disable XON/XOFF flow control to free up Ctrl+Q and Ctrl+S
+stty -ixon -ixoff 2>/dev/null
+
 # Use emacs-style line editing
 bindkey -e
 
@@ -182,6 +185,9 @@ bindkey '^[[F' end-of-line                # End
 
 # Delete key
 bindkey '^[[3~' delete-char               # Delete
+
+# Kill line (Ctrl+Q as alternative to Ctrl+K)
+bindkey '^Q' kill-line                    # Ctrl+Q
 
 # ============================================================================
 # FZF Configuration
@@ -394,8 +400,7 @@ eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/gruvbox.omp.json)"
 eval "$(zoxide init zsh)"
 
 # atuin (enhanced shell history)
-# Use --disable-up-arrow to prevent conflicts with oh-my-posh
-eval "$(atuin init zsh --disable-up-arrow)"
+eval "$(atuin init zsh)"
 
 # carapace completions (must be after compinit)
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'

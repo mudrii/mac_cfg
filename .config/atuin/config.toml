@@ -16,6 +16,12 @@
 ## date format used, either "us" or "uk"
 dialect = "us"
 
+## Show only unique commands (removes duplicates from search results)
+# run in shell 'atuin history dedup'
+
+## Hide commands that failed (non-zero exit code) from search results
+# store_failed = false
+
 ## default timezone to use when displaying time
 ## either "l", "local" to use the system's current local timezone, or an offset
 ## from UTC in the format of "<+|->H[H][:M[M][:S[S]]]"
@@ -50,7 +56,7 @@ filter_mode = "global"
 ## in any directory within a git repository tree (default: false).
 ##
 ## To use workspace mode by default when available, set this to true and
-## set filter_mode to "workspace" or leave it unspecified and 
+## set filter_mode to "workspace" or leave it unspecified and
 ## set search.filters to include "workspace" before other filter modes.
 workspaces = true
 

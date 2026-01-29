@@ -22,7 +22,10 @@ $env.CLOUDSDK_PYTHON = "/opt/homebrew/bin/python3"
 # -----------------------------------------------------------------------------
 # XDG Base Directory Specification
 # -----------------------------------------------------------------------------
-$env.XDG_DATA_DIRS = "/opt/homebrew/share"
+# Prepend homebrew share to existing XDG_DATA_DIRS (or use default if not set)
+$env.XDG_DATA_DIRS = (
+    "/opt/homebrew/share:" + ($env.XDG_DATA_DIRS? | default "/usr/local/share:/usr/share")
+)
 
 # -----------------------------------------------------------------------------
 # Homebrew Configuration
@@ -45,17 +48,6 @@ $env.PATH = (
     | uniq
 )
 
-# -----------------------------------------------------------------------------
-# Python Configuration
-# -----------------------------------------------------------------------------
-# Get Python version once and cache it to avoid slow startup
-# This runs python3 to get the version for user site-packages path
-let python_version = (python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')" | str trim)
-$env.PATH = ($env.PATH | prepend $"($env.HOME)/Library/Python/($python_version)/bin")
-
-# pyenv configuration - manages multiple Python versions
-$env.PYENV_ROOT = (^/opt/homebrew/bin/pyenv root | str trim)
-$env.PATH = ($env.PATH | prepend ($env.PYENV_ROOT | path join "shims"))
 
 # -----------------------------------------------------------------------------
 # Editor Configuration
@@ -79,16 +71,14 @@ $env.FZF_ALT_C_COMMAND = "fd --type d --hidden --follow --exclude .git"
 $env.FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border"
 
 # -----------------------------------------------------------------------------
-# Yazi File Manager Integration
+# Python Configuration (Cached for Performance)
 # -----------------------------------------------------------------------------
-# Open yazi and cd to its exit directory
-# This allows yazi to change the shell's working directory
-def --env y [...args] {
-    let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-    yazi ...$args --cwd-file $tmp
-    let cwd = (open $tmp)
-    if $cwd != "" and $cwd != $env.PWD {
-        cd $cwd
-    }
-    rm -fp $tmp
-}
+# Hardcode pyenv root to avoid running external command on every startup
+# Update this if your pyenv root location changes
+$env.PYENV_ROOT = $"($env.HOME)/.pyenv"
+$env.PATH = ($env.PATH | prepend ($env.PYENV_ROOT | path join "shims"))
+
+# Cache Python version - update when you change your default Python
+# To get current version: python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')"
+const CACHED_PYTHON_VERSION = "3.13"
+$env.PATH = ($env.PATH | prepend $"($env.HOME)/Library/Python/($CACHED_PYTHON_VERSION)/bin")
