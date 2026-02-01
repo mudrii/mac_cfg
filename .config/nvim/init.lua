@@ -39,13 +39,6 @@ vim.opt.shellxquote = ""
 vim.env.SHELL = "/bin/zsh"
 
 -- ============================================
--- CLIPBOARD SETTINGS
--- ============================================
--- Sync with system clipboard automatically
--- Any yank (y) will copy to system clipboard
-vim.opt.clipboard = "unnamedplus"
-
--- ============================================
 -- PLUGIN MANAGER: lazy.nvim
 -- ============================================
 -- Bootstrap lazy.nvim (auto-installs on first run)
@@ -165,19 +158,6 @@ require("lazy").setup({
       })
     end,
   },
-
-  -- ==========================================
-  -- SYNTAX & LANGUAGE SUPPORT (Legacy)
-  -- ==========================================
-  -- These provide additional support beyond treesitter
-  -- vim-nix: Nix language syntax highlighting
-  "LnL7/vim-nix",
-
-  -- vim-fish: Fish shell syntax highlighting
-  "dag/vim-fish",
-
-  -- vim-elixir: Elixir language support
-  "elixir-editors/vim-elixir",
 
   -- ==========================================
   -- UI & STATUS LINE: lualine.nvim
@@ -432,6 +412,7 @@ require("lazy").setup({
           "html",
           "cssls",
           "eslint",
+          "elixirls",
         },
         automatic_installation = true,
       })
@@ -497,132 +478,116 @@ require("lazy").setup({
       -- Get schemastore schemas
       local schemastore = require("schemastore")
 
-      -- Setup individual LSP servers using vim.lsp.config (Neovim 0.11+)
+      -- Setup individual LSP servers using vim.lsp.config() (Neovim 0.11+)
       -- Lua
-      vim.lsp.config.lua_ls = {
-        default_config = {
-          cmd = { "lua-language-server" },
-          filetypes = { "lua" },
-          root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
-          settings = {
-            Lua = {
-              runtime = { version = "LuaJIT" },
-              diagnostics = { globals = { "vim" } },
-              workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false,
-              },
-              telemetry = { enable = false },
+      vim.lsp.config("lua_ls", {
+        cmd = { "lua-language-server" },
+        filetypes = { "lua" },
+        root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
+        settings = {
+          Lua = {
+            runtime = { version = "LuaJIT" },
+            diagnostics = { globals = { "vim" } },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false,
             },
+            telemetry = { enable = false },
           },
         },
         capabilities = capabilities,
         on_attach = on_attach,
-      }
+      })
 
       -- TypeScript/JavaScript
-      vim.lsp.config.ts_ls = {
-        default_config = {
-          cmd = { "typescript-language-server", "--stdio" },
-          filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-          root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-        },
+      vim.lsp.config("ts_ls", {
+        cmd = { "typescript-language-server", "--stdio" },
+        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+        root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
         capabilities = capabilities,
         on_attach = on_attach,
-      }
+      })
 
       -- Python
-      vim.lsp.config.pyright = {
-        default_config = {
-          cmd = { "pyright-langserver", "--stdio" },
-          filetypes = { "python" },
-          root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json", ".git" },
-          settings = {
-            python = {
-              analysis = {
-                typeCheckingMode = "basic",
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-              },
+      vim.lsp.config("pyright", {
+        cmd = { "pyright-langserver", "--stdio" },
+        filetypes = { "python" },
+        root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json", ".git" },
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
             },
           },
         },
         capabilities = capabilities,
         on_attach = on_attach,
-      }
+      })
 
       -- JSON
-      vim.lsp.config.jsonls = {
-        default_config = {
-          cmd = { "vscode-json-language-server", "--stdio" },
-          filetypes = { "json", "jsonc" },
-          root_markers = { ".git" },
-          settings = {
-            json = {
-              schemas = schemastore.json.schemas(),
-              validate = { enable = true },
-            },
+      vim.lsp.config("jsonls", {
+        cmd = { "vscode-json-language-server", "--stdio" },
+        filetypes = { "json", "jsonc" },
+        root_markers = { ".git" },
+        settings = {
+          json = {
+            schemas = schemastore.json.schemas(),
+            validate = { enable = true },
           },
         },
         capabilities = capabilities,
         on_attach = on_attach,
-      }
+      })
 
       -- YAML
-      vim.lsp.config.yamlls = {
-        default_config = {
-          cmd = { "yaml-language-server", "--stdio" },
-          filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
-          root_markers = { ".git" },
-          settings = {
-            yaml = {
-              schemaStore = { enable = false, url = "" },
-              schemas = schemastore.yaml.schemas({
-                extra = {
-                  {
-                    description = "Kubernetes",
-                    fileMatch = { "**/k8s/**/*.yaml", "**/kubernetes/**/*.yaml", "**/manifests/**/*.yaml" },
-                    name = "kubernetes",
-                    url = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.29.0-standalone-strict/all.json",
-                  },
+      vim.lsp.config("yamlls", {
+        cmd = { "yaml-language-server", "--stdio" },
+        filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+        root_markers = { ".git" },
+        settings = {
+          yaml = {
+            schemaStore = { enable = false, url = "" },
+            schemas = schemastore.yaml.schemas({
+              extra = {
+                {
+                  description = "Kubernetes",
+                  fileMatch = { "**/k8s/**/*.yaml", "**/kubernetes/**/*.yaml", "**/manifests/**/*.yaml" },
+                  name = "kubernetes",
+                  url = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.29.0-standalone-strict/all.json",
                 },
-              }),
-            },
+              },
+            }),
           },
         },
         capabilities = capabilities,
         on_attach = on_attach,
-      }
+      })
 
       -- HTML
-      vim.lsp.config.html = {
-        default_config = {
-          cmd = { "vscode-html-language-server", "--stdio" },
-          filetypes = { "html", "templ" },
-          root_markers = { "package.json", ".git" },
-        },
+      vim.lsp.config("html", {
+        cmd = { "vscode-html-language-server", "--stdio" },
+        filetypes = { "html", "templ" },
+        root_markers = { "package.json", ".git" },
         capabilities = capabilities,
         on_attach = on_attach,
-      }
+      })
 
       -- CSS
-      vim.lsp.config.cssls = {
-        default_config = {
-          cmd = { "vscode-css-language-server", "--stdio" },
-          filetypes = { "css", "scss", "less" },
-          root_markers = { "package.json", ".git" },
-        },
+      vim.lsp.config("cssls", {
+        cmd = { "vscode-css-language-server", "--stdio" },
+        filetypes = { "css", "scss", "less" },
+        root_markers = { "package.json", ".git" },
         capabilities = capabilities,
         on_attach = on_attach,
-      }
+      })
 
       -- ESLint
-      vim.lsp.config.eslint = {
-        default_config = {
-          cmd = { "vscode-eslint-language-server", "--stdio" },
-          filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
-          root_markers = { ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json", "eslint.config.js", "eslint.config.mjs", "eslint.config.cjs" },
-        },
+      vim.lsp.config("eslint", {
+        cmd = { "vscode-eslint-language-server", "--stdio" },
+        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
+        root_markers = { ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json", "eslint.config.js", "eslint.config.mjs", "eslint.config.cjs" },
         capabilities = capabilities,
         on_attach = function(client, bufnr)
           on_attach(client, bufnr)
@@ -631,40 +596,27 @@ require("lazy").setup({
             command = "EslintFixAll",
           })
         end,
-      }
-
-      -- Nix (nil)
-      vim.lsp.config.nil_ls = {
-        default_config = {
-          cmd = { "nil" },
-          filetypes = { "nix" },
-          root_markers = { "flake.nix", "default.nix", "shell.nix", ".git" },
-        },
-        capabilities = capabilities,
-        on_attach = on_attach,
-      }
+      })
 
       -- Elixir
-      vim.lsp.config.elixirls = {
-        default_config = {
-          cmd = { "/opt/homebrew/bin/elixir-ls" },
-          filetypes = { "elixir", "eelixir", "heex", "surface" },
-          root_markers = { "mix.exs", ".git" },
-          settings = {
-            elixirLS = {
-              dialyzerEnabled = true,
-              fetchDeps = false,
-              enableTestLenses = true,
-              suggestSpecs = true,
-            },
+      vim.lsp.config("elixirls", {
+        cmd = { "/opt/homebrew/bin/elixir-ls" },
+        filetypes = { "elixir", "eelixir", "heex", "surface" },
+        root_markers = { "mix.exs", ".git" },
+        settings = {
+          elixirLS = {
+            dialyzerEnabled = true,
+            fetchDeps = false,
+            enableTestLenses = true,
+            suggestSpecs = true,
           },
         },
         capabilities = capabilities,
         on_attach = on_attach,
-      }
+      })
 
       -- Enable LSP servers
-      vim.lsp.enable({ "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "html", "cssls", "eslint", "nil_ls", "elixirls" })
+      vim.lsp.enable({ "lua_ls", "ts_ls", "pyright", "jsonls", "yamlls", "html", "cssls", "eslint", "elixirls" })
     end,
   },
 
@@ -831,15 +783,74 @@ require("lazy").setup({
   -- ==========================================
   -- EDITING ENHANCEMENTS
   -- ==========================================
-  -- vim-commentary: Comment stuff out
-  -- Documentation: https://github.com/tpope/vim-commentary
-  --
-  -- Keymaps:
+  -- Native commenting (Neovim 0.10+):
   --   gcc         - Comment out a line
   --   gc{motion}  - Comment out target of motion
   --   gc          - In visual mode, comment selection
-  --   gcap        - Comment out a paragraph
-  "tpope/vim-commentary",
+
+  -- ts-comments.nvim: Better commentstrings for embedded languages
+  -- Documentation: https://github.com/folke/ts-comments.nvim
+  -- Enhances native commenting with treesitter-aware commentstrings
+  -- (e.g., correct comment style for JSX inside JavaScript)
+  {
+    "folke/ts-comments.nvim",
+    event = "VeryLazy",
+    opts = {},
+  },
+
+  -- nvim-autopairs: Auto-close brackets, quotes, parens
+  -- Documentation: https://github.com/windwp/nvim-autopairs
+  --
+  -- Automatically closes:
+  --   ( -> ()    [ -> []    { -> {}
+  --   " -> ""    ' -> ''    ` -> ``
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup({
+        check_ts = true,
+      })
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    end,
+  },
+
+  -- conform.nvim: Format on save
+  -- Documentation: https://github.com/stevearc/conform.nvim
+  --
+  -- Commands:
+  --   :ConformInfo  - Show active formatters for current buffer
+  --
+  -- Install formatters via Mason or system package manager:
+  --   stylua, prettier, black, shfmt, etc.
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    config = function()
+      require("conform").setup({
+        formatters_by_ft = {
+          lua = { "stylua" },
+          python = { "black" },
+          javascript = { "prettier" },
+          typescript = { "prettier" },
+          typescriptreact = { "prettier" },
+          javascriptreact = { "prettier" },
+          json = { "prettier" },
+          yaml = { "prettier" },
+          html = { "prettier" },
+          css = { "prettier" },
+          scss = { "prettier" },
+          sh = { "shfmt" },
+        },
+        format_on_save = {
+          timeout_ms = 500,
+          lsp_format = "fallback",
+        },
+      })
+    end,
+  },
 
   -- undotree: Visualize undo history
   -- Documentation: https://github.com/mbbill/undotree
@@ -922,14 +933,16 @@ vim.opt.termguicolors = true        -- Enable 24-bit colors
 -- EDITOR APPEARANCE
 -- ============================================
 vim.opt.exrc = true                 -- Allow project-specific .nvimrc
+vim.opt.secure = true               -- Restrict commands in project .nvimrc files
 vim.opt.guicursor = ""              -- Block cursor always
-vim.opt.signcolumn = "yes"          -- Always show sign column
+vim.opt.signcolumn = "auto:1"       -- Show sign column only when signs exist
 vim.opt.title = true                -- Set terminal title
 vim.opt.relativenumber = true       -- Relative line numbers
 vim.opt.number = true               -- Show absolute line number on current line
+vim.opt.numberwidth = 1              -- Minimum number column width (auto-expands)
 vim.opt.history = 1000              -- Command history size
 vim.opt.showcmd = true              -- Show partial commands
-vim.opt.showmode = true             -- Show current mode
+vim.opt.showmode = false            -- Lualine already shows the mode
 vim.opt.hidden = true               -- Allow hidden buffers
 vim.opt.linespace = 0               -- No extra line spacing
 vim.opt.showmatch = true            -- Highlight matching brackets
@@ -947,7 +960,7 @@ vim.opt.magic = true                -- Enable regex magic characters
 -- ============================================
 -- SCROLLING
 -- ============================================
-vim.opt.scrolljump = 5              -- Lines to scroll when cursor leaves screen
+vim.opt.scrolljump = 1              -- Smooth scrolling (1 line at a time)
 vim.opt.scrolloff = 5               -- Keep 5 lines above/below cursor
 vim.opt.sidescrolloff = 15          -- Keep 15 columns left/right of cursor
 vim.opt.sidescroll = 1              -- Scroll horizontally by 1 column
@@ -966,7 +979,7 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"  -- Neovim 0.10+ native API
 vim.opt.foldnestmax = 10            -- Maximum fold depth
 vim.opt.foldenable = false          -- Don't fold by default
 vim.opt.foldlevel = 99
-vim.opt.foldcolumn = "1"            -- Show fold column
+vim.opt.foldcolumn = "0"            -- Disable fold column (saves left margin space)
 
 -- ============================================
 -- LINE WRAPPING
@@ -1168,11 +1181,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
-
--- ============================================
--- FILETYPE SETTINGS
--- ============================================
-vim.cmd("filetype plugin indent on")
 
 -- ============================================
 -- QUICK REFERENCE - ALL CUSTOM KEYMAPS

@@ -30,6 +30,8 @@ Optimized macOS development environment with Neovim, Zsh, Tmux, Nushell, and sup
   - [Quick Reference Card](#quick-reference-card)
   - [Configuration Files](#configuration-files)
   - [Dependencies](#dependencies)
+  - [Node.js Version Management (asdf)](#nodejs-version-management-asdf)
+  - [Brewfile](#brewfile)
 
 ---
 
@@ -149,16 +151,47 @@ Optimized macOS development environment with Neovim, Zsh, Tmux, Nushell, and sup
 
 | Shortcut | Description |
 |----------|-------------|
-| `gcc` / `gc{motion}` / `gc` | Comment line / motion / selection |
+| `gcc` / `gc{motion}` / `gc` | Comment line / motion / selection (native Neovim 0.10+, enhanced by ts-comments.nvim) |
 | `<leader>i` | Fix indentation |
 | `<leader><space>` | Clear search highlighting |
 | `<leader>sp` | Toggle spell check |
 | `<F5>` | Toggle undo tree |
 | `<leader>W` | Sudo save |
 
+### Autopairs (nvim-autopairs)
+
+Auto-closes brackets, quotes, and parentheses in insert mode:
+
+| Input | Result |
+|-------|--------|
+| `(` | `()` |
+| `[` | `[]` |
+| `{` | `{}` |
+| `"` | `""` |
+| `'` | `''` |
+
+Treesitter-aware (won't pair inside strings/comments). Integrates with nvim-cmp to auto-add parentheses after function completions.
+
+### Formatting (conform.nvim)
+
+Format-on-save is enabled via conform.nvim with LSP fallback.
+
+| Command | Description |
+|---------|-------------|
+| `:ConformInfo` | Show active formatters for current buffer |
+
+| Language | Formatter |
+|----------|-----------|
+| Lua | stylua |
+| JS/TS/JSON/YAML/HTML/CSS | prettier |
+| Python | black |
+| Shell/Bash | shfmt |
+
+Install formatters via Mason: `:MasonInstall stylua prettier black shfmt`
+
 ### Clipboard
 
-Clipboard is synced automatically with `clipboard = "unnamedplus"`.
+Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 
 | Shortcut | Description |
 |----------|-------------|
@@ -282,6 +315,8 @@ Clipboard is synced automatically with `clipboard = "unnamedplus"`.
 | **Updates** | `brewup` / `npmup` / `pipup` | Update packages |
 | | `uvup` / `topgup` | Update uv / Run topgrade |
 | | `brewcl` | Clean Homebrew |
+| | `masup` | Update Mac App Store apps |
+| | `allup` | Run all updaters |
 
 ### Functions
 
@@ -290,8 +325,10 @@ Clipboard is synced automatically with `clipboard = "unnamedplus"`.
 | `vf` | Fuzzy find file and open in nvim |
 | `vg <pattern>` | Grep and open result in nvim |
 | `vcd` | Fuzzy cd and open nvim |
+| `cdf` | Fuzzy find and cd into directory (no editor) |
 | `mkcd <dir>` | Create directory and cd into it |
 | `extract <file>` | Extract any archive format |
+| `mcfg <args>` | Dotfiles management via bare git repo |
 
 ### FZF Shortcuts
 
@@ -314,18 +351,42 @@ Clipboard is synced automatically with `clipboard = "unnamedplus"`.
 | `env.nu` | Environment variables, PATH setup |
 | `config.nu` | Aliases, functions, integrations |
 
-### Aliases & Functions
+### Aliases
 
-| Command | Description |
-|---------|-------------|
-| `vim` / `vi` / `v` | Open Neovim |
-| `vimrc` / `nuconfig` / `nuenv` | Edit configs |
-| `lsa` / `lt` / `lta` | List / Tree / Tree detailed |
+| Category | Alias | Description |
+|----------|-------|-------------|
+| **Listing (eza)** | `els` / `la` | List with icons / Long all files |
+| | `lsa` / `lt` / `lta` | Detailed / Tree / Tree detailed |
+| **Safety** | `erm` / `ecp` / `emv` | External rm/cp/mv with confirmation |
+| **Editor** | `vim` / `vi` / `v` | Open Neovim |
+| | `vimrc` / `zshrc` | Edit nvim/zsh configs |
+| | `nuconfig` / `nuenv` | Edit nushell configs |
+| **Utility** | `grep` / `df` / `edu` | Colored grep / human df / external du |
+| **Git** | `g` / `gs` / `ga` / `gc` | git / status / add / commit |
+| | `gp` / `gl` / `gd` / `gco` | push / pull / diff / checkout |
+| | `gb` / `glog` | branch / pretty log |
+| **Updates** | `brewup` / `npmup` / `pipup` | Update packages |
+| | `uvup` / `topgup` / `brewcl` | Update uv / topgrade / clean brew |
+| | `masup` / `allup` | Update App Store / Run all updaters |
+
+> **Note:** Nushell built-in commands (`ls`, `rm`, `cp`, `mv`, `du`) are preserved.
+> External equivalents use the `e` prefix (`els`, `erm`, `ecp`, `emv`, `edu`).
+
+### Functions
+
+| Function | Description |
+|----------|-------------|
 | `vf` / `vg <pattern>` / `vcd` | Fuzzy find / grep / cd + nvim |
-| `ll` / `cdf` | List by time / Fuzzy cd |
+| `ll` | List files sorted by modification time (nushell-native) |
+| `cdf` | Fuzzy find and cd into directory |
 | `y [args]` | Yazi file manager |
-| `brewup` / `npmup` / `uvup` / `pipup` | Update packages |
-| `mcfg <args>` | Dotfiles management |
+| `mkcd <dir>` | Create directory and cd into it |
+| `extract <file>` | Extract any archive format |
+| `free` | Show memory usage (macOS) |
+| `ports` | Show listening ports |
+| `show-path` | Print PATH entries |
+| `reload` | Restart nushell to reload config |
+| `mcfg <args>` | Dotfiles management via bare git repo |
 | `pyenv shell <ver>` | Set pyenv version |
 
 ### Environment Variables
@@ -495,6 +556,7 @@ zi projects       # Interactive selection
 | Segment | Description |
 |---------|-------------|
 | OS | Operating system icon |
+| SSH Session | `user@hostname` in red — only visible during SSH sessions |
 | Path | Current directory (full path) |
 | Git | Branch, status, stash count |
 | Go / Python / Ruby / Julia | Version (when in project) |
@@ -560,7 +622,8 @@ Dotfiles are managed using a bare git repository.
 - Shell configs: `~/.zshrc`, `~/Library/Application Support/nushell/*`
 - Tool configs: `~/.config/atuin/`, `~/.config/ghostty/`, `~/.config/yazi/`, `~/.config/topgrade.toml`
 - Init files: `~/.oh-my-posh.nu`, `~/.zoxide.nu`, `~/.cache/carapace/init.nu`, `~/.local/share/atuin/init.nu`
-- Homebrew: `~/brewfile`
+- Homebrew: `~/Brewfile`
+- Version management: `~/.tool-versions` (asdf global)
 
 ---
 
@@ -640,8 +703,10 @@ Ctrl-R         Search history (atuin)
 Alt-C          Find directories (fzf)
 vf             Find file and open in nvim
 vg <pattern>   Grep and open at line
-brewup         Full brew update
+cdf            Fuzzy find and cd into directory
 mcfg <args>    Dotfiles management
+allup          Run all system updaters
+brewup         Full brew update
 ```
 
 ### Yazi
@@ -676,7 +741,7 @@ Install all required tools via Homebrew:
 
 ```bash
 # Core tools
-brew install neovim node ripgrep fzf fd bat glow
+brew install neovim ripgrep fzf fd bat glow
 
 # Shell enhancements
 brew install zsh-syntax-highlighting zsh-autosuggestions
@@ -691,6 +756,9 @@ brew install yazi ffmpegthumbnailer unar jq poppler
 # Multiplexer & alternative shell
 brew install tmux nushell
 
+# Python & linting
+brew install uv ruff kimi-cli
+
 # System updater
 brew install topgrade
 
@@ -698,6 +766,49 @@ brew install topgrade
 brew tap homebrew/cask-fonts
 brew install --cask font-meslo-lg-nerd-font
 ```
+
+### Node.js Version Management (asdf)
+
+Node.js is managed via [asdf](https://asdf-vm.com/) instead of Homebrew, allowing per-project version pinning.
+
+```bash
+# Setup
+brew install asdf
+asdf plugin add nodejs
+asdf install nodejs 22.22.0    # LTS
+asdf install nodejs 25.4.0     # Current
+
+# Set global default
+asdf set -u nodejs 22.22.0
+
+# Set per-project version (creates .tool-versions)
+asdf set nodejs 22.22.0
+
+# List installed versions
+asdf list nodejs
+```
+
+asdf is sourced in `~/.zshrc`:
+```bash
+source /opt/homebrew/opt/asdf/libexec/asdf.sh
+```
+
+### Brewfile
+
+All Homebrew packages are declared in `~/Brewfile` for reproducible setup:
+
+```bash
+# Install everything from Brewfile
+brew bundle --file ~/Brewfile
+
+# Check if Brewfile is satisfied
+brew bundle check --file ~/Brewfile
+```
+
+**Brewfile conventions:**
+- Only include explicitly needed packages, not their dependencies
+- Use correct formula names (e.g., `go` not `golang`, `openssl@3` not `openssl`)
+- Tap packages use full path (e.g., `oven-sh/bun/bun`)
 
 ### Regenerate Init Files
 
@@ -717,4 +828,4 @@ atuin init nu | save -f ~/.local/share/atuin/init.nu
 
 ---
 
-*Last updated: January 2026*
+*Last updated: February 1, 2026*
