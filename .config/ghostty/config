@@ -84,6 +84,9 @@ quick-terminal-position = top
 quick-terminal-screen = main
 # quick-terminal-animation-duration = 0.2
 
+# Fix Shift+Enter for Claude Code inside tmux
+keybind = shift+enter=text:\x1b\r
+
 # Custom keybindings (examples)
 # keybind = ctrl+shift+c=copy_to_clipboard
 # keybind = ctrl+shift+v=paste_from_clipboard

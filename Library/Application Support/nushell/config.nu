@@ -53,6 +53,45 @@ alias brewcl = brew bundle cleanup --force --file=~/brewfile
 alias topgup = topgrade -v -c
 
 # -----------------------------------------------------------------------------
+# Aliases - File listing (additional eza aliases)
+# -----------------------------------------------------------------------------
+# ls is a nushell built-in (structured output) — use `els` for eza
+alias els = ^eza --icons
+alias la = ^eza --long --all --icons
+
+# -----------------------------------------------------------------------------
+# Aliases - Safety (confirm before overwrite)
+# -----------------------------------------------------------------------------
+# rm, cp, mv are nushell built-ins — use `erm`/`ecp`/`emv` for external + interactive
+alias erm = ^rm -i
+alias ecp = ^cp -i
+alias emv = ^mv -i
+
+# -----------------------------------------------------------------------------
+# Aliases - Utility
+# -----------------------------------------------------------------------------
+# grep is external, df is external — safe to alias directly
+# du is a nushell built-in — use `edu` for external du
+alias grep = ^grep --color=auto
+alias df = ^df -h
+alias edu = ^du -h
+alias zshrc = nvim ~/.zshrc
+
+# -----------------------------------------------------------------------------
+# Aliases - Git shortcuts
+# -----------------------------------------------------------------------------
+alias g = git
+alias gs = git status
+alias ga = git add
+alias gc = git commit
+alias gp = git push
+alias gl = git pull
+alias gd = git diff
+alias gco = git checkout
+alias gb = git branch
+alias glog = git log --oneline --graph --decorate
+
+# -----------------------------------------------------------------------------
 # PATH Configuration
 # -----------------------------------------------------------------------------
 # Use nushell's path add utility for consistent PATH management
@@ -208,7 +247,7 @@ def npmup [] {
     npm list -g
 
     print "\nUpdating global packages..."
-    npm update -g --loglevel verbose
+    npm update -g --loglevel warn
 }
 
 # Update all uv tools
@@ -295,4 +334,98 @@ def mcfg [
     ...args: string                  # Additional arguments
 ] {
     git --git-dir=$"($nu.home-dir)/src/personal/mac_cfg" --work-tree=$"($nu.home-dir)" $cmd ...$args
+}
+
+# -----------------------------------------------------------------------------
+# Utility Functions
+# -----------------------------------------------------------------------------
+
+# Show memory usage (macOS)
+def free [] {
+    ^top -l 1 -s 0 | lines | find PhysMem
+}
+
+# Show listening ports
+def ports [] {
+    ^lsof -i -P -n | lines | find LISTEN
+}
+
+# Print PATH entries one per line
+def show-path [] {
+    $env.PATH
+}
+
+# Reload nushell config by restarting the shell
+def reload [] {
+    print "Restarting nushell..."
+    exec nu
+}
+
+# Create directory and cd into it
+def --env mkcd [dir: string] {
+    mkdir $dir
+    cd $dir
+}
+
+# Extract various archive formats
+def extract [file: string] {
+    if not ($file | path exists) {
+        print $"'($file)' is not a valid file"
+        return
+    }
+    if ($file | str ends-with ".tar.bz2") {
+        ^tar xjf $file
+    } else if ($file | str ends-with ".tar.gz") {
+        ^tar xzf $file
+    } else if ($file | str ends-with ".tar.xz") {
+        ^tar xJf $file
+    } else if ($file | str ends-with ".bz2") {
+        ^bunzip2 $file
+    } else if ($file | str ends-with ".rar") {
+        ^unrar x $file
+    } else if ($file | str ends-with ".gz") {
+        ^gunzip $file
+    } else if ($file | str ends-with ".tar") {
+        ^tar xf $file
+    } else if ($file | str ends-with ".tbz2") {
+        ^tar xjf $file
+    } else if ($file | str ends-with ".tgz") {
+        ^tar xzf $file
+    } else if ($file | str ends-with ".zip") {
+        ^unzip $file
+    } else if ($file | str ends-with ".Z") {
+        ^uncompress $file
+    } else if ($file | str ends-with ".7z") {
+        ^7z x $file
+    } else {
+        print $"'($file)' cannot be extracted via extract"
+    }
+}
+
+# -----------------------------------------------------------------------------
+# System Update Functions
+# -----------------------------------------------------------------------------
+
+# Update Mac App Store apps
+def masup [] {
+    mas list
+    mas outdated
+    mas upgrade --verbose
+}
+
+# Full system update - run all updaters
+def allup [] {
+    print "==> Updating Homebrew packages..."
+    brewup
+    print "\n==> Updating Mac App Store apps..."
+    masup
+    print "\n==> Updating npm packages..."
+    npmup
+    print "\n==> Updating pip packages..."
+    pipup
+    print "\n==> Updating uv tools..."
+    uvup
+    print "\n==> Running topgrade..."
+    topgup
+    print "\n==> All updates complete!"
 }
