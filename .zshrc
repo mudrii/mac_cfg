@@ -66,7 +66,7 @@ setopt PROMPT_SUBST                  # Enable prompt substitution
 autoload -Uz compinit
 
 # Only regenerate .zcompdump once per day for faster startup
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
     compinit
 else
     compinit -C
@@ -272,7 +272,7 @@ alias zshrc='nvim ~/.zshrc'
 alias brewcl='brew bundle cleanup --force --file=~/brewfile'
 alias brewup='brew update && brew outdated && brew upgrade --greedy --dry-run && brew bundle --file=~/brewfile && brew upgrade --greedy'
 alias masup='mas list && mas outdated && mas upgrade --verbose'
-alias npmup='npm list -g && npm update -g --loglevel verbose'
+alias npmup='npm list -g && npm update -g --loglevel warn'
 alias pipup="uv pip list --python 3.14 --system && uv pip list --python 3.14 --system --outdated && uv pip list --python 3.14 --system --outdated | tail -n +3 | awk '{print \$1}' | xargs uv pip install --python 3.14 --system --break-system-packages --upgrade"
 alias uvup='uv tool list && uv tool upgrade --all'
 alias topgup='topgrade -v -c'
@@ -384,6 +384,19 @@ extract() {
     fi
 }
 
+# Fuzzy find and cd into directory (without opening editor)
+cdf() {
+    local dir
+    dir=$(fd --type d | fzf)
+    [[ -n "${dir}" ]] && cd "${dir}"
+}
+
+# Manage dotfiles using bare git repository
+# Usage: mcfg status, mcfg add <file>, mcfg commit -m "msg", etc.
+mcfg() {
+    git --git-dir="$HOME/src/personal/mac_cfg" --work-tree="$HOME" "$@"
+}
+
 # ============================================================================
 # Tool Integrations
 # ============================================================================
@@ -405,7 +418,10 @@ eval "$(atuin init zsh)"
 # carapace completions (must be after compinit)
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-source <(carapace _carapace)
+if [[ ! -f ~/.zsh_carapace_completion ]] || [[ $(find ~/.zsh_carapace_completion -mtime +7 -print) ]]; then
+    carapace _carapace > ~/.zsh_carapace_completion
+fi
+source ~/.zsh_carapace_completion
 
 # pyenv initialization
 eval "$(pyenv init -)"
