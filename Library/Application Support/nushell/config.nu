@@ -241,13 +241,22 @@ def brewup [] {
     brew upgrade --greedy
 }
 
-# Update all global npm packages
+# Update all global npm packages to latest versions
 def npmup [] {
     print "Current global packages:"
-    npm list -g
+    npm list -g --depth=0
 
-    print "\nUpdating global packages..."
-    npm update -g --loglevel warn
+    print "\nChecking for outdated packages..."
+    try { npm outdated -g } catch { }
+
+    print "\nUpgrading outdated packages to latest..."
+    let raw = (do { npm outdated -g --json } | complete | get stdout)
+    let outdated = ($raw | from json)
+    for pkg in ($outdated | columns) {
+        let latest = ($outdated | get $pkg | get latest)
+        print $"Installing ($pkg)@($latest)..."
+        npm install -g $"($pkg)@($latest)"
+    }
 }
 
 # Update all uv tools
@@ -260,31 +269,33 @@ def uvup [] {
 }
 
 # Update system Python packages via uv
-# Dynamically detects Python version
+# Auto-detects all Homebrew Python versions and updates each
 def pipup [] {
-    let python_version = (python3 --version | parse "Python {v}" | get v.0 | split row '.' | take 2 | str join '.')
+    let versions = (brew list --formula | lines | where {|l| $l starts-with "python@"} | each {|l| $l | str replace "python@" ""})
 
-    print $"Current packages \(Python ($python_version)\):"
-    uv pip list --python $python_version --system
+    for pyver in $versions {
+        print $"==> Python ($pyver)"
+        uv pip list --python $pyver --system
 
-    print "\nOutdated packages:"
-    uv pip list --python $python_version --system --outdated
+        print "\nOutdated packages:"
+        uv pip list --python $pyver --system --outdated
 
-    # Parse outdated packages and upgrade each
-    let packages = (uv pip list --python $python_version --system --outdated
-        | lines
-        | skip 2
-        | each { |line| $line | split row ' ' | first }
-    )
+        let packages = (uv pip list --python $pyver --system --outdated
+            | lines
+            | skip 2
+            | each { |line| $line | split row ' ' | first }
+        )
 
-    if ($packages | is-not-empty) {
-        print $"\nUpgrading ($packages | length) packages..."
-        $packages | each { |pkg|
-            print $"Upgrading ($pkg)..."
-            uv pip install --python $python_version --system --break-system-packages --upgrade $pkg
+        if ($packages | is-not-empty) {
+            print $"\nUpgrading ($packages | length) packages..."
+            $packages | each { |pkg|
+                print $"Upgrading ($pkg)..."
+                uv pip install --python $pyver --system --break-system-packages --upgrade $pkg
+            }
+        } else {
+            print "\nAll packages are up to date."
         }
-    } else {
-        print "\nAll packages are up to date."
+        print ""
     }
 }
 

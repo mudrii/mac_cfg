@@ -59,7 +59,7 @@ brew "go"
 brew "gh"
 brew "glow" # markdown cli document viewer
 brew "helix"
-brew "huggingface-cli"
+# brew "huggingface-cli"
 brew "imagemagick" # yazi dependancy
 brew "jj"
 brew "jq" # yazi dependancy

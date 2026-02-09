@@ -111,7 +111,10 @@ typeset -U PATH path
 
 # Build PATH in order of priority (highest first)
 path=(
-    # Homebrew (highest priority)
+    # asdf version manager shims (highest priority - before Homebrew)
+    "$HOME/.asdf/shims"
+
+    # Homebrew
     /opt/homebrew/bin
     /opt/homebrew/sbin
 
@@ -272,8 +275,8 @@ alias zshrc='nvim ~/.zshrc'
 alias brewcl='brew bundle cleanup --force --file=~/brewfile'
 alias brewup='brew update && brew outdated && brew upgrade --greedy --dry-run && brew bundle --file=~/brewfile && brew upgrade --greedy'
 alias masup='mas list && mas outdated && mas upgrade --verbose'
-alias npmup='npm list -g && npm update -g --loglevel warn'
-alias pipup="uv pip list --python 3.14 --system && uv pip list --python 3.14 --system --outdated && uv pip list --python 3.14 --system --outdated | tail -n +3 | awk '{print \$1}' | xargs uv pip install --python 3.14 --system --break-system-packages --upgrade"
+alias npmup='npm list -g --depth=0; npm outdated -g || true; npm outdated -g --json 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); [print(k+\"@\"+d[k][\"latest\"]) for k in d]" | xargs -r -n1 npm install -g'
+alias pipup='_pipup_all'
 alias uvup='uv tool list && uv tool upgrade --all'
 alias topgup='topgrade -v -c'
 
@@ -295,6 +298,22 @@ alias glog='git log --oneline --graph --decorate'
 # ============================================================================
 # Functions
 # ============================================================================
+
+# Update system Python packages for all Homebrew Python versions
+_pipup_all() {
+    local pyversions
+    pyversions=($(brew list --formula | grep "^python@" | sed "s/python@//"))
+    for pyver in "${pyversions[@]}"; do
+        echo "==> Python $pyver"
+        uv pip list --python "$pyver" --system
+        echo "\nOutdated:"
+        uv pip list --python "$pyver" --system --outdated
+        uv pip list --python "$pyver" --system --outdated | tail -n +3 | awk '{print $1}' | while read -r pkg; do
+            [ -n "$pkg" ] && uv pip install --python "$pyver" --system --break-system-packages --upgrade "$pkg"
+        done
+        echo ""
+    done
+}
 
 # Full system update
 allup() {
@@ -478,3 +497,5 @@ fi
 #   Alt+C           Find directories
 #
 # ============================================================================
+
+alias claude-mem='bun "/Users/mudrii/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'

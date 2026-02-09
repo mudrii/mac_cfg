@@ -371,8 +371,8 @@ require("lazy").setup({
     config = function()
       require("glow").setup({
         border = "rounded",
-        width_ratio = 0.8,
-        height_ratio = 0.8,
+        width_ratio = 0.97,
+        height_ratio = 0.88,
       })
       vim.keymap.set("n", "<leader>mp", ":Glow<CR>", { silent = true, desc = "Markdown preview" })
     end,

@@ -1,24 +1,24 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "230b9c6"
+rev = "88990a6"
 hash = "270915fa8282a19908449530ff66f7e2"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:diff"
-rev = "230b9c6"
+rev = "88990a6"
 hash = "2f08b8249b57737e7257298a3b2a2edc"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "230b9c6"
+rev = "88990a6"
 hash = "8da0b15a97b5dfd13941d1ecc617ac7c"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
-rev = "9e053d0"
+rev = "4c57537"
 hash = "8eabb4e88096f10905a6df62cfaadbf4"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-macchiato"
-rev = "9e053d0"
+rev = "4c57537"
 hash = "2f60298d6c26b6d388c8091a9389fa8f"

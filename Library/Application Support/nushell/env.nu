@@ -45,8 +45,15 @@ $env.PATH = (
     | prepend $"($env.HOME)/.local/bin"         # User local binaries (highest)
     | prepend "/opt/homebrew/sbin"               # Homebrew system binaries
     | prepend "/opt/homebrew/bin"                # Homebrew binaries
+    | prepend $"($env.HOME)/.asdf/shims"        # asdf version manager shims
     | uniq
 )
+
+# -----------------------------------------------------------------------------
+# asdf Version Manager Configuration
+# -----------------------------------------------------------------------------
+$env.ASDF_DIR = "/opt/homebrew/opt/asdf/libexec"
+$env.ASDF_DATA_DIR = $"($env.HOME)/.asdf"
 
 
 # -----------------------------------------------------------------------------

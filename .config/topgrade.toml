@@ -40,7 +40,7 @@ only = [
 ]
 
 # Tolerate failures in steps that are flaky or network-dependent
-ignore_failures = ["firmware", "containers", "gcloud"]
+ignore_failures = ["firmware", "containers", "gcloud", "uv"]
 
 [brew]
 # greedy_cask is a superset of greedy_latest and greedy_auto_updates
