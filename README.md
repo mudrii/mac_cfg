@@ -330,7 +330,7 @@ Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 | `cdf` | Fuzzy find and cd into directory (no editor) |
 | `mkcd <dir>` | Create directory and cd into it |
 | `extract <file>` | Extract any archive format |
-| `mcfg <args>` | Dotfiles management via bare git repo |
+| `dot <args>` | Dotfiles management via bare git repo |
 
 ### FZF Shortcuts
 
@@ -390,7 +390,7 @@ Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 | `ports` | Show listening ports |
 | `show-path` | Print PATH entries |
 | `reload` | Restart nushell to reload config |
-| `mcfg <args>` | Dotfiles management via bare git repo |
+| `dot <args>` | Dotfiles management via bare git repo |
 | `pyenv shell <ver>` | Set pyenv version |
 
 ### Environment Variables
@@ -618,16 +618,16 @@ topgrade --only brew  # Specific step only
 
 Dotfiles are managed using a bare git repository.
 
-### Commands (mcfg)
+### Commands (dot)
 
 | Command | Description |
 |---------|-------------|
-| `mcfg status` | Show status of tracked files |
-| `mcfg add <file>` | Track a new file |
-| `mcfg commit -m "msg"` | Commit changes |
-| `mcfg push` | Push to remote |
-| `mcfg ls-files` | List all tracked files |
-| `mcfg diff` | Show uncommitted changes |
+| `dot status` | Show status of tracked files |
+| `dot add <file>` | Track a new file |
+| `dot commit -m "msg"` | Commit changes |
+| `dot push` | Push to remote |
+| `dot ls-files` | List all tracked files |
+| `dot diff` | Show uncommitted changes |
 
 ### Tracked Files
 
@@ -717,7 +717,7 @@ Alt-C          Find directories (fzf)
 vf             Find file and open in nvim
 vg <pattern>   Grep and open at line
 cdf            Fuzzy find and cd into directory
-mcfg <args>    Dotfiles management
+dot <args>    Dotfiles management
 allup          Run all system updaters
 brewup         Full brew update
 ```

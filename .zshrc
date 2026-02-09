@@ -411,8 +411,8 @@ cdf() {
 }
 
 # Manage dotfiles using bare git repository
-# Usage: mcfg status, mcfg add <file>, mcfg commit -m "msg", etc.
-mcfg() {
+# Usage: dot status, dot add <file>, dot commit -m "msg", etc.
+dot() {
     git --git-dir="$HOME/src/personal/mac_cfg" --work-tree="$HOME" "$@"
 }
 

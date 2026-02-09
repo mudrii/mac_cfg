@@ -318,8 +318,8 @@ def --env "pyenv shell --unset" [] {
 # Git Dotfiles Management
 # -----------------------------------------------------------------------------
 
-# Completion for mcfg - common git subcommands
-def "nu-complete mcfg" [] {
+# Completion for dot - common git subcommands
+def "nu-complete dot" [] {
     [
         { value: "status", description: "Show working tree status" }
         { value: "add", description: "Add file contents to the index" }
@@ -339,9 +339,9 @@ def "nu-complete mcfg" [] {
 }
 
 # Manage dotfiles using bare git repository
-# Usage: mcfg status, mcfg add <file>, mcfg commit -m "msg", etc.
-def mcfg [
-    cmd: string@"nu-complete mcfg"  # Git subcommand
+# Usage: dot status, dot add <file>, dot commit -m "msg", etc.
+def dot [
+    cmd: string@"nu-complete dot"  # Git subcommand
     ...args: string                  # Additional arguments
 ] {
     git --git-dir=$"($nu.home-dir)/src/personal/mac_cfg" --work-tree=$"($nu.home-dir)" $cmd ...$args
