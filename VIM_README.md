@@ -919,7 +919,7 @@ When a snippet is selected and expanded:
 
 ## 24. Formatting (conform.nvim)
 
-Your config auto-formats files on save. You can also format manually.
+Your config auto-formats files on save and trims trailing whitespace. You can also format manually.
 
 | Key / Command | Action |
 |---------------|--------|
@@ -974,6 +974,7 @@ Signs appear in the gutter next to modified lines.
 | `<leader>hp` | Preview hunk (see what changed) (`Space h p`) |
 | `<leader>hb` | Blame current line (`Space h b`) |
 | `<leader>hd` | Diff this file (`Space h d`) |
+| `<leader>hD` | Diff this against parent commit (`Space h D`) |
 | `<leader>tb` | Toggle line blame on/off (`Space t b`) |
 | `<leader>td` | Toggle showing deleted lines (`Space t d`) |
 
@@ -1074,9 +1075,14 @@ Press `<leader>` (Space) and wait 300ms to see all available keybindings organiz
 |-------|--------|----------|
 | Find | `<leader>f` | File, grep, buffer, history search |
 | Git | `<leader>g` | Git status, diff commands |
-| Hunk | `<leader>h` | Git hunk stage, reset, preview |
-| Tab | `<leader>t` | Tab management |
+| Hunk | `<leader>h` | Git hunk stage, reset, preview, diff |
+| Tab | `<leader>t` | Tab management, toggle blame/deleted |
 | Code | `<leader>c` | Code actions |
+| Buffer | `<leader>b` | Buffer navigation (prev/next/list/close) |
+| Split | `<leader>s` | Split management, spell toggle |
+| LSP | `<leader>l` | Format, diagnostics, loclist |
+| Rename | `<leader>r` | Rename symbol |
+| Markdown | `<leader>m` | Markdown preview |
 
 **Practice:** Press `Space` and wait. Read through the groups. Press a letter to see subgroups.
 
