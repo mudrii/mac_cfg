@@ -312,8 +312,10 @@ Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 | **Git** | `g` / `gs` / `ga` / `gc` | git / status / add / commit |
 | | `gp` / `gl` / `gd` / `gco` | push / pull / diff / checkout |
 | | `gb` / `glog` | branch / pretty log |
-| **Updates** | `brewup` / `npmup` / `pipup` | Update packages |
-| | `uvup` / `topgup` | Update uv / Run topgrade |
+| **Updates** | `brewup` | Full Homebrew update cycle |
+| | `npmup` | Update global npm packages to latest (JSON-based) |
+| | `pipup` | Update system pip packages for all Python versions |
+| | `uvup` / `topgup` | Update uv tools / Run topgrade |
 | | `brewcl` | Clean Homebrew |
 | | `masup` | Update Mac App Store apps |
 | | `allup` | Run all updaters |
@@ -365,8 +367,10 @@ Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 | **Git** | `g` / `gs` / `ga` / `gc` | git / status / add / commit |
 | | `gp` / `gl` / `gd` / `gco` | push / pull / diff / checkout |
 | | `gb` / `glog` | branch / pretty log |
-| **Updates** | `brewup` / `npmup` / `pipup` | Update packages |
-| | `uvup` / `topgup` / `brewcl` | Update uv / topgrade / clean brew |
+| **Updates** | `brewup` | Full Homebrew update cycle |
+| | `npmup` | Update global npm packages to latest (JSON-based) |
+| | `pipup` | Update system pip packages for all Python versions |
+| | `uvup` / `topgup` / `brewcl` | Update uv tools / topgrade / clean brew |
 | | `masup` / `allup` | Update App Store / Run all updaters |
 
 > **Note:** Nushell built-in commands (`ls`, `rm`, `cp`, `mv`, `du`) are preserved.
@@ -397,6 +401,8 @@ Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 | `FZF_DEFAULT_COMMAND` | fd --type f --hidden --follow --exclude .git |
 | `FZF_DEFAULT_OPTS` | --height 40% --layout=reverse --border |
 | `HOMEBREW_PREFIX` | /opt/homebrew |
+| `ASDF_DIR` | /opt/homebrew/opt/asdf/libexec |
+| `ASDF_DATA_DIR` | ~/.asdf |
 
 ### Integrations
 
@@ -588,8 +594,14 @@ zi projects       # Interactive selection
 | macOS System | Software updates |
 | TPM | Tmux plugins |
 | VS Code / Cursor | Extensions |
-| pipx / pip3 / npm / yarn | Package managers |
+| pipx / pip3 / uv | Python package managers |
+| npm / yarn / pnpm | Node.js package managers |
+| GitHub CLI Extensions | gh extensions |
+| Yazi | Plugin updates |
+| gcloud | Google Cloud SDK |
 | TLDR | Pages database |
+
+**Ignored failures:** firmware, containers, gcloud, uv (flaky/network-dependent)
 
 ### Usage
 
@@ -614,16 +626,17 @@ Dotfiles are managed using a bare git repository.
 | `mcfg add <file>` | Track a new file |
 | `mcfg commit -m "msg"` | Commit changes |
 | `mcfg push` | Push to remote |
-| `mcfg ls-tree --name-only -r HEAD` | List all tracked files |
+| `mcfg ls-files` | List all tracked files |
 | `mcfg diff` | Show uncommitted changes |
 
 ### Tracked Files
 
-- Shell configs: `~/.zshrc`, `~/Library/Application Support/nushell/*`
-- Tool configs: `~/.config/atuin/`, `~/.config/ghostty/`, `~/.config/yazi/`, `~/.config/topgrade.toml`
+- Shell configs: `~/.zshrc`, `~/Library/Application Support/nushell/{config,env}.nu`
+- Editor: `~/.config/nvim/init.lua`, `~/.config/wezterm/wezterm.lua`
+- Tool configs: `~/.config/atuin/{config,server}.toml`, `~/.config/ghostty/config`, `~/.config/yazi/`, `~/.config/topgrade.toml`, `~/.config/tmux/tmux.conf`
 - Init files: `~/.oh-my-posh.nu`, `~/.zoxide.nu`, `~/.cache/carapace/init.nu`, `~/.local/share/atuin/init.nu`
-- Homebrew: `~/Brewfile`
-- Version management: `~/.tool-versions` (asdf global)
+- Homebrew: `~/brewfile`
+- Docs: `README.md`, `VIM_README.md`
 
 ---
 
@@ -759,6 +772,9 @@ brew install tmux nushell
 # Python & linting
 brew install uv ruff kimi-cli
 
+# Version management
+brew install asdf
+
 # System updater
 brew install topgrade
 
@@ -788,24 +804,28 @@ asdf set nodejs 22.22.0
 asdf list nodejs
 ```
 
-asdf is sourced in `~/.zshrc`:
+asdf is configured in both shells:
+
+**Zsh** (`~/.zshrc`):
 ```bash
 source /opt/homebrew/opt/asdf/libexec/asdf.sh
 ```
 
+**Nushell** (`env.nu`): asdf shims are prepended to PATH, with `ASDF_DIR` and `ASDF_DATA_DIR` set as environment variables. asdf shims have highest PATH priority in both shells, above Homebrew.
+
 ### Brewfile
 
-All Homebrew packages are declared in `~/Brewfile` for reproducible setup:
+All Homebrew packages are declared in `~/brewfile` for reproducible setup:
 
 ```bash
-# Install everything from Brewfile
-brew bundle --file ~/Brewfile
+# Install everything from brewfile
+brew bundle --file ~/brewfile
 
-# Check if Brewfile is satisfied
-brew bundle check --file ~/Brewfile
+# Check if brewfile is satisfied
+brew bundle check --file ~/brewfile
 ```
 
-**Brewfile conventions:**
+**brewfile conventions:**
 - Only include explicitly needed packages, not their dependencies
 - Use correct formula names (e.g., `go` not `golang`, `openssl@3` not `openssl`)
 - Tap packages use full path (e.g., `oven-sh/bun/bun`)
@@ -828,4 +848,4 @@ atuin init nu | save -f ~/.local/share/atuin/init.nu
 
 ---
 
-*Last updated: February 1, 2026*
+*Last updated: February 9, 2026*
