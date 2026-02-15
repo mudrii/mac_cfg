@@ -55,6 +55,11 @@ $env.PATH = (
 $env.ASDF_DIR = "/opt/homebrew/opt/asdf/libexec"
 $env.ASDF_DATA_DIR = $"($env.HOME)/.asdf"
 
+# -----------------------------------------------------------------------------
+# GitHub Token for MCP/Copilot integrations (pulled from gh CLI auth)
+# -----------------------------------------------------------------------------
+$env.GITHUB_PERSONAL_ACCESS_TOKEN = (gh auth token 2>/dev/null | str trim)
+
 
 # -----------------------------------------------------------------------------
 # Editor Configuration

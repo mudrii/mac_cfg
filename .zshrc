@@ -102,6 +102,9 @@ export CLOUDSDK_PYTHON="/opt/homebrew/bin/python3"
 # Elixir/Erlang shell history
 export ERL_AFLAGS="-kernel shell_history enabled"
 
+# GitHub token for MCP/Copilot integrations (pulled from gh CLI auth)
+export GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token 2>/dev/null)"
+
 # ============================================================================
 # PATH Configuration
 # ============================================================================

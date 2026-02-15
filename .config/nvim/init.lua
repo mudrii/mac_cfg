@@ -16,6 +16,7 @@
 -- Fuzzy Finder:    :Files          (fzf file search)
 -- Git Status:      <leader>gs      (open fugitive)
 -- Undo History:    <F5>            (toggle undotree)
+-- Live Preview:    <leader>ls      (start HTML preview)
 -- Which Key:       <leader>        (show keybindings)
 -- ============================================
 
@@ -375,6 +376,36 @@ require("lazy").setup({
         height_ratio = 0.88,
       })
       vim.keymap.set("n", "<leader>mp", ":Glow<CR>", { silent = true, desc = "Markdown preview" })
+    end,
+  },
+
+  -- ==========================================
+  -- HTML: Live preview in browser
+  -- ==========================================
+  -- Documentation: https://github.com/brianhuster/live-preview.nvim
+  --
+  -- Commands:
+  --   :LivePreview start       - Start live preview of current file
+  --   :LivePreview close       - Stop the preview server
+  --   :LivePreview pick        - Pick a file to preview
+  --
+  -- Keymaps:
+  --   <leader>ls     - Start live preview
+  --   <leader>lc     - Close live preview
+  --   <leader>lp     - Pick file to preview
+  {
+    "brianhuster/live-preview.nvim",
+    cmd = "LivePreview",
+    ft = { "html", "css" },
+    config = function()
+      require("livepreview.config").set({
+        port = 5500,
+        browser = "default",
+        sync_scroll = true,
+      })
+      vim.keymap.set("n", "<leader>ls", ":LivePreview start<CR>", { silent = true, desc = "Start live preview" })
+      vim.keymap.set("n", "<leader>lc", ":LivePreview close<CR>", { silent = true, desc = "Close live preview" })
+      vim.keymap.set("n", "<leader>lp", ":LivePreview pick<CR>", { silent = true, desc = "Pick file to preview" })
     end,
   },
 
@@ -901,6 +932,7 @@ require("lazy").setup({
         { "<leader>h", group = "Hunk" },
         { "<leader>t", group = "Tab" },
         { "<leader>c", group = "Code" },
+        { "<leader>l", group = "Live Preview" },
       })
     end,
   },
@@ -1226,6 +1258,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 --   <leader>i       Fix indentation
 --   <leader>sp      Toggle spell check
 --   <leader><space> Clear search highlight
+--
+-- LIVE PREVIEW:
+--   <leader>ls      Start live preview (HTML/CSS)
+--   <leader>lc      Close live preview
+--   <leader>lp      Pick file to preview
 --
 -- UNDO:
 --   <F5>            Toggle undotree
