@@ -1,16 +1,16 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "88990a6"
+rev = "25918dc"
 hash = "270915fa8282a19908449530ff66f7e2"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:diff"
-rev = "88990a6"
+rev = "25918dc"
 hash = "2f08b8249b57737e7257298a3b2a2edc"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "88990a6"
+rev = "25918dc"
 hash = "8da0b15a97b5dfd13941d1ecc617ac7c"
 
 [[flavor.deps]]

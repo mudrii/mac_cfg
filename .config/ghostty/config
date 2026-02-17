@@ -63,8 +63,9 @@ mouse-hide-while-typing = true
 # Disable paste protection warning (set to true for security)
 clipboard-paste-protection = false
 
-# Copy on select
-copy-on-select = clipboard
+# Copy on select - disabled to avoid conflict with tmux mouse copy
+# tmux-yank plugin handles copy inside tmux sessions
+copy-on-select = false
 
 # -----------------------------------------------------------------------------
 # Shell Integration
