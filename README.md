@@ -62,16 +62,16 @@ Optimized macOS development environment with Neovim, Zsh, Tmux, Nushell, and sup
 | `<leader>fg` | Grep in files (fzf + ripgrep) |
 | `<leader>fb` | Find buffers |
 | `<leader>fh` | Find in history |
-| `<leader>mp` | Markdown preview (Glow) |
 
-### Markdown Preview (Glow)
+### Live Preview (HTML/CSS)
 
 | Command | Description |
 |---------|-------------|
-| `:Glow` | Preview current markdown file |
-| `:Glow!` | Close preview window |
-| `<leader>mp` | Preview markdown (keymap) |
-| `q` | Close Glow window |
+| `<leader>ls` | Start live preview in browser |
+| `<leader>lc` | Close live preview server |
+| `<leader>lp` | Pick file to preview |
+| `:LivePreview start` | Start preview (port 5500) |
+| `:LivePreview close` | Stop preview server |
 
 ### nvim-tree (File Explorer)
 
@@ -227,6 +227,8 @@ Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 | `<prefix> r` | Reload config |
 | `<prefix> <C-a>` | Switch to last window |
 | `<prefix> a` | Send Ctrl-a to application |
+| `<C-;>` | Clear screen (bypasses vim-tmux-navigator) |
+| `<C-q>` | Clear line forward (bypasses vim-tmux-navigator) |
 
 ### Windows
 
@@ -266,9 +268,20 @@ Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 |----------|-------------|
 | `<prefix> Escape` | Enter copy mode |
 | `v` / `<C-v>` | Begin / Rectangle selection |
-| `y` | Copy selection (to clipboard) |
+| `y` | Copy selection to clipboard + exit copy mode |
 | `/` / `?` | Search forward / backward |
-| `Escape` | Cancel |
+| `Escape` / `q` | Cancel |
+| Double-click | Select word (enters copy mode, press `y` to copy) |
+| Triple-click | Select line (enters copy mode, press `y` to copy) |
+
+### Mouse Text Selection
+
+| Method | How | Result |
+|--------|-----|--------|
+| Plain drag | Click + drag in tmux | Enters tmux copy mode; press `y` to copy |
+| `Shift` + drag | Hold Shift, click + drag | Ghostty native selection; auto-copied to clipboard |
+| Double-click | Double-click a word | Selects word in copy mode; press `y` to copy |
+| Triple-click | Triple-click a line | Selects line in copy mode; press `y` to copy |
 
 ### Plugins (TPM)
 
@@ -434,7 +447,7 @@ Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 
 | Feature | Status |
 |---------|--------|
-| Copy on select | Enabled |
+| Copy on select | Enabled — auto-copies on mouse selection |
 | Mouse hide while typing | Enabled |
 | Window state persistence | Enabled |
 | URL click to open | Enabled |
@@ -445,6 +458,7 @@ Clipboard is synced automatically with `clipboard = "unnamed,unnamedplus"`.
 | Shortcut | Description |
 |----------|-------------|
 | `Ctrl+S` (global) | Toggle quick terminal (dropdown) |
+| `Shift+Enter` | Newline in Claude Code inside tmux |
 
 ---
 
@@ -698,7 +712,7 @@ p              Paste from clipboard (auto-sync)
 Space+hs       Stage git hunk (nvim)
 gd             Go to definition (nvim)
 K              Hover docs (nvim)
-Space+mp       Markdown preview (nvim)
+Space+ls       Live preview HTML/CSS (nvim)
 ```
 
 ### Tmux (prefix = Ctrl-a)
@@ -754,7 +768,7 @@ Install all required tools via Homebrew:
 
 ```bash
 # Core tools
-brew install neovim ripgrep fzf fd bat glow
+brew install neovim ripgrep fzf fd bat
 
 # Shell enhancements
 brew install zsh-syntax-highlighting zsh-autosuggestions
@@ -848,4 +862,4 @@ atuin init nu | save -f ~/.local/share/atuin/init.nu
 
 ---
 
-*Last updated: February 9, 2026*
+*Last updated: March 4, 2026*

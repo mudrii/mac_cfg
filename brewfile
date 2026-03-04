@@ -20,207 +20,214 @@
 # reinstal package manually > brew reinstall --cask cursor-cli
 
 # Taps
-tap "adoptopenjdk/openjdk"
-tap "sst/tap"
-tap "nats-io/nats-tools"
-tap "netbirdio/tap"
-tap "nikitabobko/tap"
-tap "runpod/runpodctl"
-tap "oven-sh/bun"
+tap "adoptopenjdk/openjdk"       # AdoptOpenJDK Java distributions
+tap "sst/tap"                    # SST (Serverless Stack) framework
+tap "nats-io/nats-tools"        # NATS messaging system tools
+tap "netbirdio/tap"             # NetBird VPN/networking
+tap "nikitabobko/tap"           # Aerospace tiling window manager
+tap "runpod/runpodctl"          # RunPod GPU cloud CLI
+tap "oven-sh/bun"               # Bun JavaScript runtime
 
 
 # Brews
-# brew "docker-compose"
-# brew "kubectl"
-brew "age"
-brew "asciinema"
-brew "asdf"
-brew "asitop"
-brew "atac"
-brew "atuin"
-brew "awscli"
-brew "bat"
-brew "oven-sh/bun/bun"
-brew "btop"
-brew "carapace"
-brew "code2prompt"
-brew "cmake"
-brew "crane"
-brew "czkawka"
-brew "dust"
-brew "elixir-ls"
-brew "exiftool"
-brew "eza"
-brew "fd" # yazi dependancy
-brew "fdupes"
-brew "ffmpegthumbnailer" # yazi dependancy
-brew "fzf" # yazi dependancy
-brew "go"
-brew "gh"
-brew "glow" # markdown cli document viewer
-brew "helix"
-# brew "huggingface-cli"
-brew "imagemagick" # yazi dependancy
-brew "jj"
-brew "jq" # yazi dependancy
-brew "kimi-cli"
-brew "llama.cpp"
-brew "lf"
-brew "lima"
-brew "llm"
-brew "lua-language-server"
-brew "mas"
-# brew "nats-io/nats-tools/nats"
-# brew "nats-server"
-# brew "nats-streaming-server"
-brew "ncdu"
-brew "neovim"
-brew "nmap"
-brew "nushell"
-brew "oh-my-posh"
-brew "openjdk"
-brew "opentofu"
-brew "p7zip"
-brew "pandoc"
-brew "pipx"
-brew "podman-compose"
-brew "podman-tui"
-brew "poppler" # yazi dependancy
-brew "portal"
-brew "portaudio"
-brew "pueue"
-brew "pv"
-brew "pyenv"
-brew "pygments"
-brew "rainfrog"
-brew "ripgrep" # yazi dependancy
-brew "ruff"
-brew "runpod/runpodctl/runpodctl"
-brew "rust"
-brew "sevenzip" # yazi dependancy
-brew "sha3sum"
-brew "skopeo"
-brew "sshs"
-brew "starship"
-brew "stow"
-brew "thefuck"
-brew "tlrc"
-brew "tmux"
-brew "topgrade"
-brew "tree-sitter"
-brew "tree-sitter-cli"
-brew "trippy"
-brew "uv"
-brew "wget"
-brew "yazi" # yazi dependancy
-brew "ykman"
-brew "yq"
-brew "zellij"
-brew "zoxide" # yazi dependancy
-brew "zsh-autosuggestions"
-brew "zsh-syntax-highlighting"
+# brew "docker-compose"               # Multi-container Docker orchestration
+# brew "kubectl"                       # Kubernetes cluster CLI
+brew "age"                       # Modern file encryption tool (age-encryption.org)
+brew "asciinema"                 # Terminal session recorder
+brew "asdf"                      # Multi-language version manager
+brew "asitop"                    # Apple Silicon performance monitor (CPU/GPU/ANE)
+brew "atac"                      # TUI API client (like Postman in terminal)
+brew "atuin"                     # Shell history sync and search with SQLite
+brew "awscli"                    # AWS command-line interface
+brew "bat"                       # Cat clone with syntax highlighting and git integration
+brew "oven-sh/bun/bun"          # Fast JavaScript/TypeScript runtime and package manager
+brew "btop"                      # Resource monitor (CPU, memory, disks, network)
+brew "carapace"                  # Multi-shell completion engine
+brew "code2prompt"               # Convert codebase to LLM prompts
+brew "cmake"                     # Cross-platform build system generator
+brew "crane"                     # Container registry image management tool
+brew "curlie"                    # curl frontend with HTTPie-like syntax and output
+brew "czkawka"                   # Duplicate file and broken symlink finder
+brew "dust"                      # Intuitive disk usage viewer (du replacement)
+brew "elixir-ls"                 # Elixir language server for LSP
+brew "exiftool"                  # Read/write metadata in image/video/audio files
+brew "eza"                       # Modern ls replacement with colors and icons
+brew "fd"                        # Fast file finder (find replacement) # yazi dependency
+brew "fdupes"                    # Duplicate file finder and remover
+brew "ffmpegthumbnailer"         # Video thumbnail generator # yazi dependency
+brew "fzf"                       # Fuzzy finder for files, history, and more # yazi dependency
+brew "go"                        # Go programming language
+brew "gh"                        # GitHub CLI (PRs, issues, repos from terminal)
+brew "glow"                      # Markdown renderer for terminal
+brew "helix"                     # Post-modern modal text editor (Rust-based)
+brew "hexyl"                     # Colorized hex viewer for binary files
+brew "htop"                      # Interactive process viewer (top replacement)
+brew "huggingface-cli"               # Hugging Face model hub CLI
+brew "imagemagick"               # Image manipulation toolkit # yazi dependency
+brew "jj"                        # Jujutsu - Git-compatible VCS with simpler mental model
+brew "jq"                        # Command-line JSON processor # yazi dependency
+brew "kimi-cli"                  # Kimi AI assistant CLI
+brew "llama.cpp"                 # Local LLM inference engine (GGUF models)
+brew "lf"                        # Terminal file manager (Go-based)
+brew "lima"                      # Linux virtual machines on macOS (for containers)
+brew "llm"                       # CLI for interacting with LLMs (Simon Willison)
+brew "lua-language-server"       # Lua LSP server (for Neovim config editing)
+brew "mas"                       # Mac App Store CLI
+# brew "nats-io/nats-tools/nats"       # NATS messaging system CLI
+# brew "nats-server"                   # NATS lightweight messaging server
+# brew "nats-streaming-server"         # NATS persistent streaming server
+brew "ncdu"                      # NCurses disk usage analyzer
+brew "neovim"                    # Hyperextensible Vim-based text editor
+brew "nmap"                      # Network scanner and security auditing tool
+brew "nushell"                   # Structured data shell (pipelines return tables)
+brew "oh-my-posh"                # Cross-shell prompt theme engine
+brew "openjdk"                   # Java Development Kit (open source)
+brew "opentofu"                  # Terraform-compatible infrastructure as code
+brew "p7zip"                     # 7-Zip file archiver (command-line)
+brew "pandoc"                    # Universal document format converter
+brew "pipx"                      # Install Python CLI tools in isolated environments
+brew "podman-compose"            # Docker Compose alternative for Podman
+brew "podman-tui"                # TUI for managing Podman containers
+brew "poppler"                   # PDF rendering library (for previews) # yazi dependency
+brew "portal"                    # Secure file transfer between computers
+brew "portaudio"                 # Cross-platform audio I/O library
+brew "pueue"                     # Background task queue manager
+brew "pv"                        # Pipe viewer - monitor data through a pipeline
+brew "pyenv"                     # Python version management
+brew "pygments"                  # Syntax highlighting library (used by other tools)
+brew "rainfrog"                  # TUI for PostgreSQL database management
+brew "ripgrep"                   # Ultra-fast recursive text search (grep replacement) # yazi dependency
+brew "ruff"                      # Extremely fast Python linter and formatter
+brew "runpod/runpodctl/runpodctl" # RunPod GPU cloud management CLI
+brew "rust"                      # Rust programming language
+brew "sevenzip"                  # 7-Zip archiver (modern version) # yazi dependency
+brew "sha3sum"                   # SHA-3 hash calculator
+brew "skopeo"                    # Container image copy/inspect without daemon
+brew "sshs"                      # TUI for SSH config - interactive host selector
+brew "starship"                  # Minimal cross-shell prompt (alternative to oh-my-posh)
+brew "stow"                      # Symlink farm manager for dotfiles
+brew "thefuck"                   # Auto-correct previous console command typos
+brew "tlrc"                      # TLDR pages client (community man page summaries)
+brew "tmux"                      # Terminal multiplexer (sessions, windows, panes)
+brew "topgrade"                  # Unified system updater (brew, npm, pip, etc.)
+brew "tree-sitter"               # Incremental parsing library for syntax trees
+brew "tree-sitter-cli"           # CLI for developing tree-sitter grammars
+brew "trippy"                    # Network diagnostic tool (TUI traceroute)
+brew "uv"                        # Extremely fast Python package manager (pip/venv replacement)
+brew "worktrunk"                 # CLI for Git worktree management, designed for parallel AI agent workflows
+brew "wget"                      # File downloader (HTTP/HTTPS/FTP)
+brew "yazi"                      # Blazing fast terminal file manager # yazi dependency
+brew "ykman"                     # YubiKey Manager CLI
+brew "yq"                        # YAML/JSON/XML processor (like jq for YAML)
+brew "zellij"                    # Terminal workspace manager (tmux alternative)
+brew "zoxide"                    # Smarter cd - learns your most used directories # yazi dependency
+brew "zsh-autosuggestions"       # Fish-like autosuggestions for Zsh
+brew "zsh-syntax-highlighting"   # Fish-like syntax highlighting for Zsh
+brew "xh"                        # Friendly HTTP client with intuitive syntax (HTTPie alternative)
 
 # Casks
-# cask "shottr"
-# cask "yubico-yubikey-manager"
-# cask "basictex"
-cask "amethyst"
-cask "antigravity"
-cask "arc"
-cask "audacity"
-cask "balenaetcher"
-cask "bartender"
-cask "bitwarden"
-cask "calibre"
-cask "chatgpt"
-cask "claude"
-cask "claude-code"
-cask "cleanshot"
-cask "coconutbattery"
-cask "commander-one"
-cask "codex"
-cask "codex-app"
-cask "cursor"
-cask "cursor-cli"
-cask "cyberduck"
-cask "discord"
-cask "disk-diet"
-cask "downie"
-cask "drawio"
-cask "drivedx"
-cask "excalidrawz"
-cask "figma"
-cask "firefox"
-cask "folx"
-cask "font-meslo-lg-nerd-font"
-cask "font-symbols-only-nerd-font" # yazi dependancy
-cask "ghostty"
-cask "github"
-cask "google-chrome"
-cask "gcloud-cli"
-cask "grammarly-desktop"
-cask "handbrake-app"
-cask "helium-browser"
-cask "iina"
-cask "imageoptim"
-cask "iterm2"
-cask "keka"
-cask "keycastr"
-cask "latest"
-cask "lm-studio"
-cask "losslesscut"
-cask "maccy"
-cask "mactex"
-cask "monitorcontrol"
-cask "mullvad-browser"
-cask "mullvad-vpn"
-cask "netbird-ui"
-cask "obsidian"
-cask "ollama-app"
-cask "onyx"
-cask "pdf-squeezer"
-cask "permute"
-cask "pearcleaner"
-cask "podman-desktop"
-cask "raycast"
-cask "slack"
-cask "soulver"
-cask "spotify"
-cask "sublime-text"
-cask "telegram-desktop"
-cask "telegram"
-cask "tg-pro"
-cask "tor-browser"
-cask "transmit"
-cask "upscayl"
-cask "viber"
-cask "visual-studio-code"
-cask "voiceink"
-cask "warp"
-cask "wechat"
-cask "wezterm"
-cask "whatsapp"
-cask "wireshark-app"
-cask "yubico-authenticator"
-cask "zed"
-cask "zen"
-cask "zoom"
+# cask "shottr"                       # Screenshot tool with annotations
+# cask "yubico-yubikey-manager"       # YubiKey configuration GUI
+# cask "basictex"                     # Minimal TeX distribution (smaller than MacTeX)
+cask "amethyst"                  # Tiling window manager for macOS
+cask "antigravity"               # Window manager - keep windows on top
+cask "arc"                       # Chromium-based browser with workspaces
+cask "audacity"                  # Audio editor and recorder
+cask "balenaetcher"              # USB/SD card image flasher
+cask "bartender"                 # Menu bar icon manager
+cask "bitwarden"                 # Open-source password manager
+cask "calibre"                   # E-book manager and converter
+cask "chatgpt"                   # OpenAI ChatGPT desktop app
+cask "claude"                    # Anthropic Claude AI desktop app
+cask "claude-code"               # Claude Code CLI tool
+cask "cleanshot"                 # Screenshot and screen recording tool
+cask "coconutbattery"            # Battery health monitor for Mac/iOS
+cask "commander-one"             # Dual-pane file manager
+cask "codex"                     # OpenAI Codex CLI agent
+cask "codex-app"                 # OpenAI Codex desktop app
+cask "cursor"                    # AI-powered code editor (VS Code fork)
+cask "cursor-cli"                # Cursor editor CLI
+cask "cyberduck"                 # Cloud storage browser (S3, FTP, SFTP)
+cask "discord"                   # Voice and text chat platform
+cask "disk-diet"                 # Disk space cleanup utility
+cask "downie"                    # Video downloader for web videos
+cask "drawio"                    # Diagram and flowchart editor
+cask "drivedx"                   # Disk health diagnostics (SMART monitoring)
+cask "excalidrawz"               # Virtual whiteboard for sketching
+cask "figma"                     # Collaborative UI design tool
+cask "firefox"                   # Mozilla web browser
+cask "folx"                      # Download manager with torrent support
+cask "font-meslo-lg-nerd-font"   # Nerd Font for terminal icons
+cask "font-symbols-only-nerd-font" # Nerd Font symbols fallback # yazi dependency
+cask "ghostty"                   # GPU-accelerated terminal emulator
+cask "github"                    # GitHub Desktop client
+cask "google-chrome"             # Google web browser
+cask "gcloud-cli"                # Google Cloud SDK and CLI
+cask "grammarly-desktop"         # Writing assistant and grammar checker
+cask "handbrake-app"             # Video transcoder and converter
+cask "helium-browser"            # Floating browser window (always on top)
+cask "iina"                      # Modern media player for macOS
+cask "imageoptim"                # Image compression tool (lossless)
+cask "iterm2"                    # Feature-rich terminal emulator
+cask "keka"                      # File archiver (zip, 7z, tar, etc.)
+cask "keycastr"                  # Keystroke visualizer for screencasts
+cask "latest"                    # App update checker for macOS
+cask "lm-studio"                 # Local LLM runner with GUI
+cask "losslesscut"               # Lossless video/audio trimmer
+cask "maccy"                     # Clipboard manager (lightweight)
+cask "mactex"                    # Full TeX/LaTeX distribution for macOS
+cask "monitorcontrol"            # External monitor brightness/volume control
+cask "mullvad-browser"           # Privacy-focused browser (Tor-based)
+cask "mullvad-vpn"               # Privacy VPN service client
+cask "netbird-ui"                # NetBird mesh VPN GUI
+cask "obsidian"                  # Markdown-based knowledge management
+cask "ollama-app"                # Local LLM runner (llama, mistral, etc.)
+cask "opencode-desktop"          # OpenCode AI coding assistant desktop app
+cask "onyx"                      # macOS system maintenance and optimization
+cask "pdf-squeezer"              # PDF file size reducer
+cask "permute"                   # Media format converter (video/audio/image)
+cask "pearcleaner"               # App uninstaller with leftover cleanup
+cask "podman-desktop"            # Container management GUI (Docker alternative)
+cask "raycast"                   # Productivity launcher (Spotlight replacement)
+cask "slack"                     # Team messaging platform
+cask "soulver"                   # Smart calculator with natural language
+cask "spotify"                   # Music streaming service
+cask "sublime-text"              # Fast text editor
+cask "telegram-desktop"          # Telegram messaging (native desktop)
+cask "telegram"                  # Telegram messaging (macOS native)
+cask "tg-pro"                    # Temperature and fan monitoring
+## cask "tor-browser"
+cask "transmit"                  # FTP/SFTP/S3 file transfer client
+cask "upscayl"                   # AI image upscaler (open source)
+cask "viber"                     # Messaging and calling app
+cask "visual-studio-code"        # Microsoft code editor
+cask "voiceink"                  # Speech-to-text transcription
+cask "warp"                      # AI-powered terminal emulator
+cask "wechat"                    # WeChat messaging app
+cask "wezterm"                   # GPU-accelerated terminal with Lua config
+cask "whatsapp"                  # WhatsApp messaging desktop client
+cask "windsurf"                  # AI-powered code editor (Codeium)
+cask "wireshark-app"             # Network protocol analyzer
+cask "yubico-authenticator"      # YubiKey TOTP/FIDO authenticator
+cask "zed"                       # High-performance code editor (Rust-based)
+cask "zen"                       # Privacy-focused Firefox fork browser
+cask "zoom"                      # Video conferencing
 
 # Mac App Store apps
-## mas "Velja", id: 1607635845
-# mas "Battery Monitor", id: 413678017
-# mas "Dropover", id: 1355679052
-# mas "Encrypto", id: 935235287
-# mas "Folder Preview", id: 6698876601
-# mas "Keynote", id: 409183694
-# mas "Meeter", id: 1510445899
-# mas "Mysterium VPN", id: 6446624307
-# mas "Numbers", id: 409203825
-# mas "PDFgear", id: 6469021132
-# mas "Pages", id: 409201541
-# mas "Perplexity: Ask Anything", id: 6714467650
-# mas "Pixelmator Pro", id: 1289583905
-# mas "StopTheMadness Pro", id: 6471380298
-# mas "System Monitor", id: 423368786
-# mas "Telegram Lite", id: 946399090
-# mas "Xcode", id: 497799835
+## mas "Velja", id: 1607635845           # Browser picker (open links in specific browsers)
+# mas "Battery Monitor", id: 413678017   # Battery health and status tracker
+# mas "Dropover", id: 1355679052         # Drag-and-drop staging shelf
+# mas "Encrypto", id: 935235287          # AES file encryption tool
+# mas "Folder Preview", id: 6698876601   # Quick Look for folder contents
+# mas "Keynote", id: 409183694           # Apple presentation app
+# mas "Meeter", id: 1510445899           # Meeting calendar menu bar app
+# mas "Mysterium VPN", id: 6446624307    # Decentralized VPN service
+# mas "Numbers", id: 409203825           # Apple spreadsheet app
+# mas "PDFgear", id: 6469021132          # PDF reader and editor
+# mas "Pages", id: 409201541             # Apple word processor
+# mas "Perplexity: Ask Anything", id: 6714467650 # AI search engine
+# mas "Pixelmator Pro", id: 1289583905   # Image editor (Photoshop alternative)
+# mas "StopTheMadness Pro", id: 6471380298 # Safari extension for web annoyances
+# mas "System Monitor", id: 423368786    # System resource usage monitor
+# mas "Telegram Lite", id: 946399090     # Lightweight Telegram client
+# mas "Xcode", id: 497799835             # Apple IDE for macOS/iOS development

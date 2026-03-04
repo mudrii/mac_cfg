@@ -117,16 +117,16 @@ path=(
     # asdf version manager shims (highest priority - before Homebrew)
     "$HOME/.asdf/shims"
 
+    # User local binaries (before Homebrew - official uv installer goes here)
+    "$HOME/.local/bin"
+    "$HOME/.cargo/bin"
+
     # Homebrew
     /opt/homebrew/bin
     /opt/homebrew/sbin
 
     # pyenv shims
     "$(/opt/homebrew/bin/pyenv root)/shims"
-
-    # User local binaries
-    "$HOME/.local/bin"
-    "$HOME/.cargo/bin"
 
     # Python user packages (dynamically detected)
     "$HOME/Library/Python/3.14/bin"
@@ -280,7 +280,7 @@ alias brewup='brew update && brew outdated && brew upgrade --greedy --dry-run &&
 alias masup='mas list && mas outdated && mas upgrade --verbose'
 alias npmup='npm list -g --depth=0; npm outdated -g || true; npm outdated -g --json 2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); [print(k+\"@\"+d[k][\"latest\"]) for k in d]" | xargs -r -n1 npm install -g'
 alias pipup='_pipup_all'
-alias uvup='uv tool list && uv tool upgrade --all'
+alias uvup='uv self update && uv tool list && uv tool upgrade --all'
 alias topgup='topgrade -v -c'
 
 # ============================================================================

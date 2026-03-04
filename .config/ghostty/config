@@ -63,9 +63,10 @@ mouse-hide-while-typing = true
 # Disable paste protection warning (set to true for security)
 clipboard-paste-protection = false
 
-# Copy on select - disabled to avoid conflict with tmux mouse copy
-# tmux-yank plugin handles copy inside tmux sessions
-copy-on-select = false
+# Copy on select - copies to clipboard on mouse selection
+# Works with tmux: Shift+drag uses Ghostty native selection → auto-copied
+# tmux mouse drag still uses tmux copy mode → tmux-yank handles clipboard
+copy-on-select = true
 
 # -----------------------------------------------------------------------------
 # Shell Integration
@@ -79,6 +80,7 @@ shell-integration-features = cursor,sudo,title
 # -----------------------------------------------------------------------------
 # Global hotkey to toggle quick terminal (dropdown)
 keybind = global:ctrl+s=toggle_quick_terminal
+macos-option-as-alt = true
 
 # Quick terminal settings
 quick-terminal-position = top

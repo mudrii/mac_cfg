@@ -37,7 +37,7 @@ Open this file in Neovim (`nvim ~/VIM_README.md`) and practice each section.
 24. [Formatting (conform.nvim)](#24-formatting-conformnvim)
 25. [Git Integration](#25-git-integration)
 26. [Undo Tree](#26-undo-tree)
-27. [Markdown Preview](#27-markdown-preview)
+27. [Live Preview (HTML/CSS)](#27-live-preview-htmlcss)
 28. [Spell Checking](#28-spell-checking)
 29. [Which-Key](#29-which-key)
 30. [Command Mode Essentials](#30-command-mode-essentials)
@@ -1035,16 +1035,26 @@ Inside undotree:
 
 ---
 
-## 27. Markdown Preview
+## 27. Live Preview (HTML/CSS)
+
+Preview HTML/CSS files in your browser with live reloading via live-preview.nvim.
 
 | Key / Command | Action |
 |---------------|--------|
-| `<leader>mp` | Preview markdown in floating window (`Space m p`) |
-| `:Glow` | Same as above |
-| `:Glow!` | Close preview |
-| `q` | Close the Glow window |
+| `<leader>ls` | Start live preview (`Space l s`) |
+| `<leader>lc` | Close live preview (`Space l c`) |
+| `<leader>lp` | Pick file to preview (`Space l p`) |
+| `:LivePreview start` | Start live preview server (port 5500) |
+| `:LivePreview close` | Stop the preview server |
+| `:LivePreview pick` | Pick a file to preview |
 
-**Practice:** You're reading a markdown file right now. Press `Space m p` to see it rendered.
+The preview auto-reloads in your default browser when you save changes. Scroll sync is enabled.
+
+**Practice:**
+1. Open an HTML file: `:e ~/some_file.html`
+2. Press `Space l s` to start the live preview
+3. Edit the file and save (`:w`) — the browser updates automatically
+4. Press `Space l c` to stop the preview server
 
 ---
 
@@ -1078,11 +1088,10 @@ Press `<leader>` (Space) and wait 300ms to see all available keybindings organiz
 | Hunk | `<leader>h` | Git hunk stage, reset, preview, diff |
 | Tab | `<leader>t` | Tab management, toggle blame/deleted |
 | Code | `<leader>c` | Code actions |
+| Live Preview | `<leader>l` | Live preview, format, diagnostics, loclist |
 | Buffer | `<leader>b` | Buffer navigation (prev/next/list/close) |
 | Split | `<leader>s` | Split management, spell toggle |
-| LSP | `<leader>l` | Format, diagnostics, loclist |
 | Rename | `<leader>r` | Rename symbol |
-| Markdown | `<leader>m` | Markdown preview |
 
 **Practice:** Press `Space` and wait. Read through the groups. Press a letter to see subgroups.
 
